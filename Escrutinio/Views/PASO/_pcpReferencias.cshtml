@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Escrutinio.Models.TotalesReferenciaModel>
+
+<div class="row">
+
+    <div class="cabe col-xs-3">
+        MESAS HABILITADAS
+    </div>
+
+    <div class="cabe col-xs-3">
+        VOTANTES HABILITADOS
+    </div>
+
+    <div class="cabe col-xs-3">
+        MESAS ESCRUTADAS
+    </div>
+
+    <div class="cabe col-xs-3">
+        VOTANTES ESCRUTADOS
+    </div>
+
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+
+        <div class="pad2 col-xs-3">
+            @item.MESAS_HABILITADAS
+        </div>
+
+        <div class="pad2 col-xs-3">
+            @item.VOTANTES_HABILITADOS
+        </div>
+
+        <div class="pad2 col-xs-3">
+            @item.MESAS_ESCRUTADAS (@item.MESAS_ESCRUTADAS_PERCENT %)
+        </div>
+
+        <div class="pad2 col-xs-3">
+            @item.VOTANTES_ESCRUTADOS (@item.VOTANTES_ESCRUTADOS_PERCENT %)
+        </div>
+
+    </div>
+}
+

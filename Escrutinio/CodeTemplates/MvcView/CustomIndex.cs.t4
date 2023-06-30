@@ -1,0 +1,204 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+@using Resources
+@using System.Configuration
+<#
+	string boolType = "System.Boolean";
+	string dateType = "System.DateTime";
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    ViewBag.Title = Resources.<#= ViewDataTypeShortName#>;
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	<script type="text/javascript">
+         
+			$('.clickeable').click(function () {
+             
+				if (isMobile()) {
+					var id = $(this).closest("tr").find("input[type=hidden]").attr("value");
+
+					window.location.href = "@Url.Action("Details")/" + id;
+				}
+			});
+                         
+	</script>
+	
+}
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#= ViewName #></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+
+@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxGrid" }))
+{
+				<div class="block-header">
+					<h2>@Resources.Elementos</h2>
+
+					<ul class="actions">
+						<li>
+							<a href="">
+								<i class="zmdi zmdi-trending-up"></i>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<i class="zmdi zmdi-check-all"></i>
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="" data-toggle="dropdown">
+								<i class="zmdi zmdi-more-vert"></i>
+							</a>
+
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li>
+									<a href="">Refresh</a>
+								</li>
+								<li>
+									<a href="">Manage Widgets</a>
+								</li>
+								<li>
+									<a href="">Widgets Settings</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+                <div class="card">
+        <div class="card-header">
+        <div class="panel panel-collapse">
+            <div class="panel-heading " role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+                        @Resources.Filters
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="collapse " role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
+                <div class="panel-body">
+                    <div class="row">
+						<div class="col-md-12 actionBar">   				
+<#
+	IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+	string filterList = string.Empty;
+	foreach (PropertyMetadata property in properties) {
+		if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {			
+#>						
+							
+<#
+			bool isBoolean = property.TypeName.Equals(boolType);
+			bool isDateTime = property.TypeName.Equals(dateType);
+			if(isBoolean){
+#>				<div class="col-md-2">
+					<div class="form-group" >
+                        @Html.DropDownList("<#= property.PropertyName #>", ViewBag.BooleanFilter as SelectList, new { @class = "form-control select-custom" })
+                    </div>
+				</div>
+                    	
+<#          }
+			if(isDateTime){
+
+#>							
+					<div class="col-md-2">
+                        <div class="input-group fg-float">
+                            <div class="fg-line">
+							    @Html.TextBox("<#= property.PropertyName #>", null, new {@type="date", @class="form-control"})
+                                @Html.LabelFor(model => model.FirstOrDefault().<#= property.PropertyName #>, new {@class="fg-label"})
+                            </div>
+						</div>
+					</div>
+                        
+                    
+
+<#			}
+			if(!isDateTime && !isBoolean){
+#>						
+					<div class="col-md-2">
+                        <div class="input-group fg-float">
+                            <div class="fg-line">
+							    @Html.TextBox("<#= property.PropertyName #>", null, new {@class="form-control"})
+                                @Html.LabelFor(model => model.FirstOrDefault().<#= property.PropertyName #>, new {@class="fg-label"})
+                            </div>
+						</div>
+					</div>
+
+						
+<#          }
+			filterList += "\"" +property.PropertyName + "\", ";
+#>							
+				
+<#
+		}
+    }
+#>					<div class="col-md-1">            
+						@Ajax.ActionLinkWithParameters(" ", "IndexGrid", "Local", new AjaxOptions() { UpdateTargetId = "ajaxGrid" },
+						new string[] { <#= filterList.Substring(0, filterList.Length -2 <0 ? 0 : filterList.Length -2) #> }, new { @class = "btn btn-default btn-icon-text bgm-gray waves-effect zmdi zmdi-search FilterButton" })
+
+                    </div>
+							
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+	</div>
+
+    @Html.Partial("IndexGrid",Model)
+	</div>
+
+     if(ViewBag.PermiteCrear){
+         
+         <a href="@Url.Action("Create")" class="btn btn-float btn-primary m-btn waves-effect waves-circle waves-float"><i class="zmdi zmdi-plus"></i></a>
+                 
+        }   
+
+}
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

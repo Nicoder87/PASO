@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Escrutinio.Models.PostulacionIndexModel>
+@using System.Configuration
+
+@{
+    ViewBag.Title = "POSTULACIONES";
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+<section class="content-header">
+    <h3 class="box-title">@ViewBag.Title</h3>
+</section>
+
+<section class="content">
+
+    <div class="col-md-12">
+        @Html.ActionLink("Crear Nuevo", "Create")
+    </div>
+
+    <div style="padding-top:10px;">
+    </div>
+
+    <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    AGRUPACIÓN
+                </th>
+                <th>
+                    LISTA
+                </th>
+                <th>
+                    CARGO
+                </th>
+                <th>
+                    CANDIDATO
+                </th>
+                <th>
+                    OPCIONES
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AGRUPACION)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LISTA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CARGO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CANDIDATO)
+                    </td>
+                    <td>
+                        <a class="col-md-4" title="Editar" href="@Url.Action("Edit", new { id = item.POSTULACION })"><i class="fa fa-pencil fa-lg"></i></a>
+                    </td>
+                </tr>
+                if (item.CARGO == "INTENDENTE")
+                {
+                    <tr>
+                        <td>-</td><td>-</td><td>-</td><td>-</td><td></td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                    AGRUPACIÓN
+                </th>
+                <th>
+                    LISTA
+                </th>
+                <th>
+                    CARGO
+                </th>
+                <th>
+                    CANDIDATO
+                </th>
+                <th>
+                    OPCIONES
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatables/dataTables.bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        jQuery.noConflict();
+        jQuery("#example1").DataTable({
+            "ordering": false,
+            'iDisplayLength': 100
+        });
+
+    </script>
+}

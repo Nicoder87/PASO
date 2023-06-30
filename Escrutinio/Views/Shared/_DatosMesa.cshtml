@@ -1,0 +1,19 @@
+﻿@model Escrutinio.Models.MesaModel
+
+<div class="form-group col-xs-2">
+    @Html.LabelFor(model => model.Escuela)
+    @Html.TextBoxFor(model => model.Escuela, new { @class = "form-control", disabled = "disabled" })
+</div>
+
+<div class="form-group col-xs-2">
+    @Html.LabelFor(model => model.Circuito)
+    @Html.TextBoxFor(model => model.Circuito, new { @class = "form-control", disabled = "disabled" })
+</div>
+<div class="form-group col-xs-2">
+    @Html.LabelFor(model => model.CantVotantes)
+    @Html.TextBoxFor(model => model.CantVotantes, new { @class = "form-control", disabled = "disabled" })
+</div>
+<div class="form-group col-xs-2">
+    @Html.LabelFor(model => model.Tipo)
+    @Html.TextBoxFor(model => model.Tipo, new { @class = "form-control", disabled = "disabled" })
+</div>

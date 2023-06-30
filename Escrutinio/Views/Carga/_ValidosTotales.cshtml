@@ -1,0 +1,138 @@
+﻿@model Escrutinio.Models.ValidosTotalesModel
+
+@{
+    var y = 0;
+
+    if (Model.VtMesa.EXTRANJERO)
+    {
+        y = 31;
+    }
+    else
+    {
+        y = 53;
+    }
+}
+
+@* VÁLIDOS *@
+
+<div class="row" style="padding-top:15px;">
+
+    <div class="col-md-3" style="font-style:oblique; padding-top:10px;">VÁLIDOS</div>
+
+    @foreach (var c in Model.VtCargos)
+    {
+        var nombre = "CARGO" + c.CODIGO;
+
+        if (Model.VtMesa.EXTRANJERO == true)
+        {
+            if (!c.APLICA_EXT)
+            {
+                <div class="form-group col-md-1">
+                    <input type="text" class="form-control" style="background-color: #3c8dbc;" disabled />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-1">
+                    <input type="text" id="@nombre" name="Validos" class="form-control" style="background-color: #3c8dbc; color:white;" readonly />
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-md-1">
+                <input type="text" id="@nombre" name="Validos" class="form-control" style="background-color: #3c8dbc; color:white;" readonly />
+            </div>
+        }
+    }
+</div>
+
+<div class="row" style="padding-top:15px;">
+
+    @foreach (var vm in Model.VtOtrosVotos)
+    {
+        <div style="padding-top:10px;">
+
+            <div class="col-md-3" style="font-style:oblique; padding-top:10px;">
+                @vm.Descripcion
+            </div>
+
+            @foreach (var c in Model.VtCargos)
+            {
+                var nombre = "TOT" + c.ORDEN;
+
+                if (Model.VtMesa.EXTRANJERO == true)
+                {
+                    if (!c.APLICA_EXT)
+                    {
+                        <div class="form-group col-md-1">
+                            <input type="text" class="form-control" style="background-color: #3c8dbc;" disabled />
+                        </div>
+                    }
+                    else
+                    {
+                        var ta = "tag";
+                        y = y + 1;
+                        ta = ta + y;
+
+                        <div class="col-md-1">
+                            <input type="text" class="@ta form-control @nombre" name="@vm.Id" maxlength="3" onkeyup="Pasar(this, event);" onblur="CalcularValidos()" onkeypress="return SoloNumeros(event);" />
+                        </div>
+                    }
+                }
+                else
+                {
+                        var ta = "tag";
+                        y = y + 1;
+                        ta = ta + y;
+
+                    <div class="col-md-1">
+                        <input type="text" class="@ta form-control @nombre" name="@vm.Id" maxlength="3" onkeyup="Pasar(this, event);" onblur="CalcularValidos()" onkeypress="return SoloNumeros(event);" />
+                    </div>
+                }
+
+                if (c.ORDEN == Model.VtCargos.Count)
+                {
+                    <div class="row">
+                        <hr style="background-color:transparent" />
+                    </div>
+                }
+
+            }
+        </div>
+    }
+</div>
+
+@* TOTALES *@
+
+<div class="row" style="padding-top:15px;">
+
+    <div class="col-md-3" style="font-style:oblique; padding-top:10px;">TOTALES</div>
+
+    @foreach (var c in Model.VtCargos)
+    {
+        var nombre = "TOTAL" + c.CODIGO;
+
+        if (Model.VtMesa.EXTRANJERO == true)
+        {
+            if (!c.APLICA_EXT)
+            {
+                <div class="form-group col-md-1">
+                    <input type="text" class="form-control" style="background-color: #3c8dbc;" disabled />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-1">
+                    <input type="text" id="@nombre" class="form-control" style="background-color: #3c8dbc; color:white;" disabled />
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-md-1">
+                <input type="text" id="@nombre" class="form-control" style="background-color: #3c8dbc; color:white;" disabled />
+            </div>
+        }
+    }
+</div>

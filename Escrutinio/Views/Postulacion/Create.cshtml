@@ -1,0 +1,49 @@
+﻿@model Escrutinio.Database.POSTULACION
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <section class="content-header">
+        <h2 class="box-title">POSTULACIONES</h2>
+    </section>
+    
+    <section class="container">
+        
+        <div class="row">
+
+            @Html.ValidationSummary(true)
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.LISTA)
+                @Html.DropDownList("LISTA", new SelectList(ViewBag.Listas, "ORID", "Descripcion"), "SELECCIONAR...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LISTA)
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.CARGO)
+                @Html.DropDownList("CARGO", new SelectList(ViewBag.Cargos, "ORID", "Descripcion"), "SELECCIONAR...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CARGO)
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("VOLVER", "Index")
+        </div>
+    </section>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

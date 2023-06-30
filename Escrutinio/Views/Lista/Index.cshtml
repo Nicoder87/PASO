@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Escrutinio.Database.LISTA>
+@using System.Configuration
+
+@{
+    ViewBag.Title = "LISTAS";
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+<section class="content-header">
+    <h3 class="box-title">@ViewBag.Title</h3>
+</section>
+
+<section class="content">
+
+    <div class="col-md-12">
+        @Html.ActionLink("Crear Nuevo", "Create")
+    </div>
+
+    <div style="padding-top:10px;">
+    </div>
+
+    <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    ORDEN
+                </th>
+                <th>
+                    CODE
+                </th>
+                <th>
+                    AGRUPACIÓN
+                </th>
+                <th>
+                    LISTA
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ORDEN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CODE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AGRUPACION1.DESCRIPCION)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DESCRIPCION)
+                </td>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                    AGRUPACIÓN
+                </th>
+                <th>
+                    LISTA
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatables/dataTables.bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        jQuery.noConflict();
+        jQuery("#example1").DataTable({
+            "ordering": false,
+            'iDisplayLength': 100
+        });
+
+    </script>
+}

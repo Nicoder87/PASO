@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Escrutinio.Models.ConcejalesModel>
+
+<section class="content">
+    
+    <h2> CONCEJALES </h2>
+
+    <div id="concejales" style="font-size:20px; padding:15px;">
+
+        <div class="row">
+
+            <div class="cabe col-md-6 col-xs-12">
+                LISTA
+            </div>
+            <div class="cabe col-md-1 col-xs-6">
+                VOTOS
+            </div>
+            <div class="cabe col-md-1 hidden-xs">
+                COCIENTE
+            </div>
+            <div class="cabe col-md-1 col-xs-6">
+                CONCEJALES
+            </div>
+            <div class="cabe col-md-1 hidden-xs">
+                ENTERO
+            </div>
+            <div class="cabe col-md-1 hidden-xs">
+                RESTO
+            </div>
+            <div class="cabe col-md-1 hidden-xs">
+                SOBRA
+            </div>
+
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="row">
+
+                <div class="pad2 col-md-6 col-xs-12">
+                    @item.Lista
+                </div>
+                <div class="pad2 col-md-1 col-xs-6">
+                    @item.Votos
+                </div>
+                <div class="pad2 col-md-1 hidden-xs">
+                    @item.Cociente
+                </div>
+                <div class="pad2 col-md-1 col-xs-6">
+                    @item.Total
+                </div>
+                <div class="pad2 col-md-1 hidden-xs">
+                    @item.Enteros
+                </div>
+                <div class="pad2 col-md-1 hidden-xs">
+                    @item.RestoAsignado
+                </div>
+                <div class="pad2 col-md-1 hidden-xs">
+                    @item.SobraAsignada
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</section>

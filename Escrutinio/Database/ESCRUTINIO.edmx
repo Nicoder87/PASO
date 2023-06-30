@@ -1,0 +1,1204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ESCRUTINIOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AGRUPACION">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="COLOR" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CANDIDATO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APELLIDO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FOTO" Type="varchar" MaxLength="50" />
+          <Property Name="POSTULACION" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="APLICA_EXT" Type="bit" Nullable="false" />
+          <Property Name="ORDEN" Type="int" />
+          <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="CIRCUITO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="PRIORIDAD" Type="int" />
+        </EntityType>
+        <EntityType Name="DESIGNACION">
+          <Key>
+            <PropertyRef Name="USUARIO" />
+            <PropertyRef Name="ROL" />
+          </Key>
+          <Property Name="USUARIO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ROL" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ESCRUTINIO_CAB">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MESA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VOTOS_EMITIDOS" Type="int" Nullable="false" />
+          <Property Name="SOBRES" Type="int" Nullable="false" />
+          <Property Name="INICIO" Type="time" Precision="7" Nullable="false" />
+          <Property Name="FIN" Type="time" Precision="7" Nullable="false" />
+          <Property Name="USUARIO" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ESCRUTINIO_DET">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="POSTULACION" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MESA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VOTOS" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ESCRUTINIO_MESA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MESA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CARGO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NULOS" Type="int" Nullable="false" />
+          <Property Name="RECURRIDOS" Type="int" Nullable="false" />
+          <Property Name="IMPUGNADOS" Type="int" Nullable="false" />
+          <Property Name="BLANCOS" Type="int" Nullable="false" />
+          <Property Name="VALIDOS" Type="int" Nullable="false" />
+          <Property Name="TOTALES" Type="int" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="ESCUELA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NUMERO" Type="int" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="LATITUD" Type="varchar" MaxLength="50" />
+          <Property Name="LONGITUD" Type="varchar" MaxLength="50" />
+          <Property Name="CONTACTO" Type="varchar" MaxLength="255" />
+          <Property Name="LOCALIDAD" Type="varchar" MaxLength="255" />
+          <Property Name="CIRCUITO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CANT_MESAS" Type="int" Nullable="false" />
+          <Property Name="PRIVADA" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LISTA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NUMERO" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AGRUPACION" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ORDEN" Type="int" Nullable="false" />
+          <Property Name="CODE" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="MESA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NUMERO" Type="int" Nullable="false" />
+          <Property Name="CANT_VOTANTES" Type="int" Nullable="false" />
+          <Property Name="EXTRANJERO" Type="bit" Nullable="false" />
+          <Property Name="PRESIDENTE" Type="varchar" MaxLength="255" />
+          <Property Name="VICEPRESIDENTE" Type="varchar" MaxLength="255" />
+          <Property Name="FISCAL" Type="varchar" MaxLength="255" />
+          <Property Name="ESCUELA" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERMISO">
+          <Key>
+            <PropertyRef Name="REGLA" />
+            <PropertyRef Name="ROL" />
+          </Key>
+          <Property Name="REGLA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ROL" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POSTULACION">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LISTA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CARGO" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGLA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DEFINICION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ACTIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPO_VOTO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="4" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APELLIDO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ESCRUTINIO.dbo.vwCircuitosExtranjeros' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vwCircuitosExtranjeros">
+          <Key>
+            <PropertyRef Name="ORID" />
+            <PropertyRef Name="DESCRIPCION" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ESCRUTINIO.dbo.vwEscuelasExtranjeras' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vwEscuelasExtranjeras">
+          <Key>
+            <PropertyRef Name="ORID" />
+            <PropertyRef Name="DESCRIPCION" />
+            <PropertyRef Name="CIRCUITO" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CIRCUITO" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ESCRUTINIO.dbo.vwEscuelasNacionales' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vwEscuelasNacionales">
+          <Key>
+            <PropertyRef Name="ORID" />
+            <PropertyRef Name="DESCRIPCION" />
+            <PropertyRef Name="CIRCUITO" />
+          </Key>
+          <Property Name="ORID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CIRCUITO" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__DESIGNACION__ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="1" />
+          <End Role="DESIGNACION" Type="Self.DESIGNACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="DESIGNACION">
+              <PropertyRef Name="ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DESIGNACION__USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="DESIGNACION" Type="Self.DESIGNACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="DESIGNACION">
+              <PropertyRef Name="USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERMISO__REGLA">
+          <End Role="REGLA" Type="Self.REGLA" Multiplicity="1" />
+          <End Role="PERMISO" Type="Self.PERMISO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGLA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="PERMISO">
+              <PropertyRef Name="REGLA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERMISO__ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="1" />
+          <End Role="PERMISO" Type="Self.PERMISO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="PERMISO">
+              <PropertyRef Name="ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CANDIDATO_POSTULACION">
+          <End Role="POSTULACION" Type="Self.POSTULACION" Multiplicity="1" />
+          <End Role="CANDIDATO" Type="Self.CANDIDATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTULACION">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="CANDIDATO">
+              <PropertyRef Name="POSTULACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_CAB__USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="ESCRUTINIO_CAB" Type="Self.ESCRUTINIO_CAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_CAB">
+              <PropertyRef Name="USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_CAB_MESA">
+          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
+          <End Role="ESCRUTINIO_CAB" Type="Self.ESCRUTINIO_CAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_CAB">
+              <PropertyRef Name="MESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_DET_MESA1">
+          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
+          <End Role="ESCRUTINIO_DET" Type="Self.ESCRUTINIO_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_DET">
+              <PropertyRef Name="MESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_DET_POSTULACION1">
+          <End Role="POSTULACION" Type="Self.POSTULACION" Multiplicity="1" />
+          <End Role="ESCRUTINIO_DET" Type="Self.ESCRUTINIO_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTULACION">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_DET">
+              <PropertyRef Name="POSTULACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_MESA_CARGO">
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="1" />
+          <End Role="ESCRUTINIO_MESA" Type="Self.ESCRUTINIO_MESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_MESA">
+              <PropertyRef Name="CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_MESA_MESA">
+          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
+          <End Role="ESCRUTINIO_MESA" Type="Self.ESCRUTINIO_MESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_MESA">
+              <PropertyRef Name="MESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCUELA_CIRCUITO">
+          <End Role="CIRCUITO" Type="Self.CIRCUITO" Multiplicity="1" />
+          <End Role="ESCUELA" Type="Self.ESCUELA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CIRCUITO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCUELA">
+              <PropertyRef Name="CIRCUITO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LISTA_AGRUPACION">
+          <End Role="AGRUPACION" Type="Self.AGRUPACION" Multiplicity="1" />
+          <End Role="LISTA" Type="Self.LISTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGRUPACION">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="LISTA">
+              <PropertyRef Name="AGRUPACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MESA_ESCUELA">
+          <End Role="ESCUELA" Type="Self.ESCUELA" Multiplicity="1" />
+          <End Role="MESA" Type="Self.MESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESCUELA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="MESA">
+              <PropertyRef Name="ESCUELA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSTULACION_CARGO">
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="1" />
+          <End Role="POSTULACION" Type="Self.POSTULACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="POSTULACION">
+              <PropertyRef Name="CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSTULACION_LISTA">
+          <End Role="LISTA" Type="Self.LISTA" Multiplicity="1" />
+          <End Role="POSTULACION" Type="Self.POSTULACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LISTA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="POSTULACION">
+              <PropertyRef Name="LISTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ESCRUTINIOModelStoreContainer">
+          <EntitySet Name="AGRUPACION" EntityType="Self.AGRUPACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CANDIDATO" EntityType="Self.CANDIDATO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CARGO" EntityType="Self.CARGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CIRCUITO" EntityType="Self.CIRCUITO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DESIGNACION" EntityType="Self.DESIGNACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESCRUTINIO_CAB" EntityType="Self.ESCRUTINIO_CAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESCRUTINIO_DET" EntityType="Self.ESCRUTINIO_DET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESCRUTINIO_MESA" EntityType="Self.ESCRUTINIO_MESA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESCUELA" EntityType="Self.ESCUELA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LISTA" EntityType="Self.LISTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MESA" EntityType="Self.MESA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERMISO" EntityType="Self.PERMISO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POSTULACION" EntityType="Self.POSTULACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REGLA" EntityType="Self.REGLA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_VOTO" EntityType="Self.TIPO_VOTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwCircuitosExtranjeros" EntityType="Self.vwCircuitosExtranjeros" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwCircuitosExtranjeros].[ORID] AS [ORID], 
+    [vwCircuitosExtranjeros].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[vwCircuitosExtranjeros] AS [vwCircuitosExtranjeros]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwEscuelasExtranjeras" EntityType="Self.vwEscuelasExtranjeras" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwEscuelasExtranjeras].[ORID] AS [ORID], 
+    [vwEscuelasExtranjeras].[DESCRIPCION] AS [DESCRIPCION], 
+    [vwEscuelasExtranjeras].[CIRCUITO] AS [CIRCUITO]
+    FROM [dbo].[vwEscuelasExtranjeras] AS [vwEscuelasExtranjeras]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwEscuelasNacionales" EntityType="Self.vwEscuelasNacionales" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwEscuelasNacionales].[ORID] AS [ORID], 
+    [vwEscuelasNacionales].[DESCRIPCION] AS [DESCRIPCION], 
+    [vwEscuelasNacionales].[CIRCUITO] AS [CIRCUITO]
+    FROM [dbo].[vwEscuelasNacionales] AS [vwEscuelasNacionales]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__DESIGNACION__ROL" Association="Self.FK__DESIGNACION__ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="DESIGNACION" EntitySet="DESIGNACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DESIGNACION__USUARIO" Association="Self.FK__DESIGNACION__USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="DESIGNACION" EntitySet="DESIGNACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERMISO__REGLA" Association="Self.FK__PERMISO__REGLA">
+            <End Role="REGLA" EntitySet="REGLA" />
+            <End Role="PERMISO" EntitySet="PERMISO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERMISO__ROL" Association="Self.FK__PERMISO__ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="PERMISO" EntitySet="PERMISO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CANDIDATO_POSTULACION" Association="Self.FK_CANDIDATO_POSTULACION">
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+            <End Role="CANDIDATO" EntitySet="CANDIDATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_CAB__USUARIO" Association="Self.FK_ESCRUTINIO_CAB__USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="ESCRUTINIO_CAB" EntitySet="ESCRUTINIO_CAB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_CAB_MESA" Association="Self.FK_ESCRUTINIO_CAB_MESA">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="ESCRUTINIO_CAB" EntitySet="ESCRUTINIO_CAB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_DET_MESA1" Association="Self.FK_ESCRUTINIO_DET_MESA1">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="ESCRUTINIO_DET" EntitySet="ESCRUTINIO_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_DET_POSTULACION1" Association="Self.FK_ESCRUTINIO_DET_POSTULACION1">
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+            <End Role="ESCRUTINIO_DET" EntitySet="ESCRUTINIO_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_MESA_CARGO" Association="Self.FK_ESCRUTINIO_MESA_CARGO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="ESCRUTINIO_MESA" EntitySet="ESCRUTINIO_MESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_MESA_MESA" Association="Self.FK_ESCRUTINIO_MESA_MESA">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="ESCRUTINIO_MESA" EntitySet="ESCRUTINIO_MESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCUELA_CIRCUITO" Association="Self.FK_ESCUELA_CIRCUITO">
+            <End Role="CIRCUITO" EntitySet="CIRCUITO" />
+            <End Role="ESCUELA" EntitySet="ESCUELA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LISTA_AGRUPACION" Association="Self.FK_LISTA_AGRUPACION">
+            <End Role="AGRUPACION" EntitySet="AGRUPACION" />
+            <End Role="LISTA" EntitySet="LISTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MESA_ESCUELA" Association="Self.FK_MESA_ESCUELA">
+            <End Role="ESCUELA" EntitySet="ESCUELA" />
+            <End Role="MESA" EntitySet="MESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSTULACION_CARGO" Association="Self.FK_POSTULACION_CARGO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSTULACION_LISTA" Association="Self.FK_POSTULACION_LISTA">
+            <End Role="LISTA" EntitySet="LISTA" />
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ESCRUTINIOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ESCRUTINIOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AGRUPACION" EntityType="ESCRUTINIOModel.AGRUPACION" />
+          <EntitySet Name="CANDIDATO" EntityType="ESCRUTINIOModel.CANDIDATO" />
+          <EntitySet Name="CARGO" EntityType="ESCRUTINIOModel.CARGO" />
+          <EntitySet Name="CIRCUITO" EntityType="ESCRUTINIOModel.CIRCUITO" />
+          <EntitySet Name="ESCRUTINIO_CAB" EntityType="ESCRUTINIOModel.ESCRUTINIO_CAB" />
+          <EntitySet Name="ESCRUTINIO_DET" EntityType="ESCRUTINIOModel.ESCRUTINIO_DET" />
+          <EntitySet Name="ESCRUTINIO_MESA" EntityType="ESCRUTINIOModel.ESCRUTINIO_MESA" />
+          <EntitySet Name="ESCUELA" EntityType="ESCRUTINIOModel.ESCUELA" />
+          <EntitySet Name="MESA" EntityType="ESCRUTINIOModel.MESA" />
+          <EntitySet Name="POSTULACION" EntityType="ESCRUTINIOModel.POSTULACION" />
+          <EntitySet Name="REGLA" EntityType="ESCRUTINIOModel.REGLA" />
+          <EntitySet Name="ROL" EntityType="ESCRUTINIOModel.ROL" />
+          <AssociationSet Name="FK_CANDIDATO_POSTULACION" Association="ESCRUTINIOModel.FK_CANDIDATO_POSTULACION">
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+            <End Role="CANDIDATO" EntitySet="CANDIDATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSTULACION_CARGO" Association="ESCRUTINIOModel.FK_POSTULACION_CARGO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCUELA_CIRCUITO" Association="ESCRUTINIOModel.FK_ESCUELA_CIRCUITO">
+            <End Role="CIRCUITO" EntitySet="CIRCUITO" />
+            <End Role="ESCUELA" EntitySet="ESCUELA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_CAB_MESA" Association="ESCRUTINIOModel.FK_ESCRUTINIO_CAB_MESA">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="ESCRUTINIO_CAB" EntitySet="ESCRUTINIO_CAB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_DET_MESA" Association="ESCRUTINIOModel.FK_ESCRUTINIO_DET_MESA">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="ESCRUTINIO_DET" EntitySet="ESCRUTINIO_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_DET_POSTULACION" Association="ESCRUTINIOModel.FK_ESCRUTINIO_DET_POSTULACION">
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+            <End Role="ESCRUTINIO_DET" EntitySet="ESCRUTINIO_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_MESA_MESA" Association="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_MESA">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="ESCRUTINIO_MESA" EntitySet="ESCRUTINIO_MESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MESA_ESCUELA" Association="ESCRUTINIOModel.FK_MESA_ESCUELA">
+            <End Role="ESCUELA" EntitySet="ESCUELA" />
+            <End Role="MESA" EntitySet="MESA" />
+          </AssociationSet>
+          <AssociationSet Name="PERMISO" Association="ESCRUTINIOModel.PERMISO">
+            <End Role="REGLA" EntitySet="REGLA" />
+            <End Role="ROL" EntitySet="ROL" />
+          </AssociationSet>
+          <EntitySet Name="USUARIO" EntityType="ESCRUTINIOModel.USUARIO" />
+          <AssociationSet Name="FK_ESCRUTINIO_MESA_CARGO" Association="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_CARGO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="ESCRUTINIO_MESA" EntitySet="ESCRUTINIO_MESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ESCRUTINIO_CAB__USUARIO" Association="ESCRUTINIOModel.FK_ESCRUTINIO_CAB__USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="ESCRUTINIO_CAB" EntitySet="ESCRUTINIO_CAB" />
+          </AssociationSet>
+          <AssociationSet Name="DESIGNACION" Association="ESCRUTINIOModel.DESIGNACION">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <EntitySet Name="TIPO_VOTO" EntityType="ESCRUTINIOModel.TIPO_VOTO" />
+          <EntitySet Name="vwCircuitosExtranjeros" EntityType="ESCRUTINIOModel.vwCircuitosExtranjeros" />
+          <EntitySet Name="vwEscuelasExtranjeras" EntityType="ESCRUTINIOModel.vwEscuelasExtranjeras" />
+          <EntitySet Name="vwEscuelasNacionales" EntityType="ESCRUTINIOModel.vwEscuelasNacionales" />
+          <EntitySet Name="LISTA" EntityType="ESCRUTINIOModel.LISTA" />
+          <AssociationSet Name="FK_LISTA_AGRUPACION" Association="ESCRUTINIOModel.FK_LISTA_AGRUPACION">
+            <End Role="AGRUPACION" EntitySet="AGRUPACION" />
+            <End Role="LISTA" EntitySet="LISTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSTULACION_LISTA" Association="ESCRUTINIOModel.FK_POSTULACION_LISTA">
+            <End Role="LISTA" EntitySet="LISTA" />
+            <End Role="POSTULACION" EntitySet="POSTULACION" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AGRUPACION">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="COLOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LISTA" Relationship="ESCRUTINIOModel.FK_LISTA_AGRUPACION" FromRole="AGRUPACION" ToRole="LISTA" />
+        </EntityType>
+        <EntityType Name="CANDIDATO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="POSTULACION" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="POSTULACION1" Relationship="ESCRUTINIOModel.FK_CANDIDATO_POSTULACION" FromRole="CANDIDATO" ToRole="POSTULACION" />
+        </EntityType>
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="APLICA_EXT" Type="Boolean" Nullable="false" />
+          <Property Name="ORDEN" Type="Int32" />
+          <NavigationProperty Name="POSTULACION" Relationship="ESCRUTINIOModel.FK_POSTULACION_CARGO" FromRole="CARGO" ToRole="POSTULACION" />
+          <NavigationProperty Name="ESCRUTINIO_MESA" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_CARGO" FromRole="CARGO" ToRole="ESCRUTINIO_MESA" />
+          <Property Name="DESCRIPCION_CORTA" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CIRCUITO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PRIORIDAD" Type="Int32" />
+          <NavigationProperty Name="ESCUELA" Relationship="ESCRUTINIOModel.FK_ESCUELA_CIRCUITO" FromRole="CIRCUITO" ToRole="ESCUELA" />
+        </EntityType>
+        <EntityType Name="ESCRUTINIO_CAB">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="MESA" Type="Guid" Nullable="false" />
+          <Property Name="VOTOS_EMITIDOS" Type="Int32" Nullable="false" />
+          <Property Name="SOBRES" Type="Int32" Nullable="false" />
+          <Property Name="INICIO" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="FIN" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="USUARIO" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="MESA1" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_CAB_MESA" FromRole="ESCRUTINIO_CAB" ToRole="MESA" />
+          <NavigationProperty Name="USUARIO1" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_CAB__USUARIO" FromRole="ESCRUTINIO_CAB" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="ESCRUTINIO_DET">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="POSTULACION" Type="Guid" Nullable="false" />
+          <Property Name="MESA" Type="Guid" Nullable="false" />
+          <Property Name="VOTOS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MESA1" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_DET_MESA" FromRole="ESCRUTINIO_DET" ToRole="MESA" />
+          <NavigationProperty Name="POSTULACION1" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_DET_POSTULACION" FromRole="ESCRUTINIO_DET" ToRole="POSTULACION" />
+        </EntityType>
+        <EntityType Name="ESCRUTINIO_MESA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="MESA" Type="Guid" Nullable="false" />
+          <Property Name="CARGO" Type="Guid" Nullable="false" />
+          <Property Name="NULOS" Type="Int32" Nullable="false" />
+          <Property Name="RECURRIDOS" Type="Int32" Nullable="false" />
+          <Property Name="IMPUGNADOS" Type="Int32" Nullable="false" />
+          <Property Name="BLANCOS" Type="Int32" Nullable="false" />
+          <Property Name="VALIDOS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MESA1" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_MESA" FromRole="ESCRUTINIO_MESA" ToRole="MESA" />
+          <Property Name="TOTALES" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="CARGO1" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_CARGO" FromRole="ESCRUTINIO_MESA" ToRole="CARGO" />
+        </EntityType>
+        <EntityType Name="ESCUELA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO" Type="Int32" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="LATITUD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LONGITUD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LOCALIDAD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CIRCUITO" Type="Guid" Nullable="false" />
+          <Property Name="CANT_MESAS" Type="Int32" Nullable="false" />
+          <Property Name="PRIVADA" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CIRCUITO1" Relationship="ESCRUTINIOModel.FK_ESCUELA_CIRCUITO" FromRole="ESCUELA" ToRole="CIRCUITO" />
+          <NavigationProperty Name="MESA" Relationship="ESCRUTINIOModel.FK_MESA_ESCUELA" FromRole="ESCUELA" ToRole="MESA" />
+        </EntityType>
+        <EntityType Name="MESA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="NUMERO" Type="Int32" Nullable="false" />
+          <Property Name="CANT_VOTANTES" Type="Int32" Nullable="false" />
+          <Property Name="EXTRANJERO" Type="Boolean" Nullable="false" />
+          <Property Name="PRESIDENTE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="VICEPRESIDENTE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FISCAL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ESCUELA" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ESCRUTINIO_CAB" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_CAB_MESA" FromRole="MESA" ToRole="ESCRUTINIO_CAB" />
+          <NavigationProperty Name="ESCRUTINIO_DET" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_DET_MESA" FromRole="MESA" ToRole="ESCRUTINIO_DET" />
+          <NavigationProperty Name="ESCRUTINIO_MESA" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_MESA" FromRole="MESA" ToRole="ESCRUTINIO_MESA" />
+          <NavigationProperty Name="ESCUELA1" Relationship="ESCRUTINIOModel.FK_MESA_ESCUELA" FromRole="MESA" ToRole="ESCUELA" />
+        </EntityType>
+        <EntityType Name="POSTULACION">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="LISTA" Type="Guid" Nullable="false" />
+          <Property Name="CARGO" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="CANDIDATO" Relationship="ESCRUTINIOModel.FK_CANDIDATO_POSTULACION" FromRole="POSTULACION" ToRole="CANDIDATO" />
+          <NavigationProperty Name="CARGO1" Relationship="ESCRUTINIOModel.FK_POSTULACION_CARGO" FromRole="POSTULACION" ToRole="CARGO" />
+          <NavigationProperty Name="ESCRUTINIO_DET" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_DET_POSTULACION" FromRole="POSTULACION" ToRole="ESCRUTINIO_DET" />
+          <NavigationProperty Name="LISTA1" Relationship="ESCRUTINIOModel.FK_POSTULACION_LISTA" FromRole="POSTULACION" ToRole="LISTA" />
+        </EntityType>
+        <EntityType Name="REGLA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="DEFINICION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ROL" Relationship="ESCRUTINIOModel.PERMISO" FromRole="REGLA" ToRole="ROL" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="REGLA" Relationship="ESCRUTINIOModel.PERMISO" FromRole="ROL" ToRole="REGLA" />
+          <NavigationProperty Name="USUARIO" Relationship="ESCRUTINIOModel.DESIGNACION" FromRole="ROL" ToRole="USUARIO" />
+        </EntityType>
+        <Association Name="FK_CANDIDATO_POSTULACION">
+          <End Type="ESCRUTINIOModel.POSTULACION" Role="POSTULACION" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.CANDIDATO" Role="CANDIDATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTULACION">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="CANDIDATO">
+              <PropertyRef Name="POSTULACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSTULACION_CARGO">
+          <End Type="ESCRUTINIOModel.CARGO" Role="CARGO" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.POSTULACION" Role="POSTULACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="POSTULACION">
+              <PropertyRef Name="CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCUELA_CIRCUITO">
+          <End Type="ESCRUTINIOModel.CIRCUITO" Role="CIRCUITO" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.ESCUELA" Role="ESCUELA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CIRCUITO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCUELA">
+              <PropertyRef Name="CIRCUITO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_CAB_MESA">
+          <End Type="ESCRUTINIOModel.MESA" Role="MESA" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.ESCRUTINIO_CAB" Role="ESCRUTINIO_CAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_CAB">
+              <PropertyRef Name="MESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_DET_MESA">
+          <End Type="ESCRUTINIOModel.MESA" Role="MESA" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.ESCRUTINIO_DET" Role="ESCRUTINIO_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_DET">
+              <PropertyRef Name="MESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_DET_POSTULACION">
+          <End Type="ESCRUTINIOModel.POSTULACION" Role="POSTULACION" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.ESCRUTINIO_DET" Role="ESCRUTINIO_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTULACION">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_DET">
+              <PropertyRef Name="POSTULACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_MESA_MESA">
+          <End Type="ESCRUTINIOModel.MESA" Role="MESA" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.ESCRUTINIO_MESA" Role="ESCRUTINIO_MESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_MESA">
+              <PropertyRef Name="MESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MESA_ESCUELA">
+          <End Type="ESCRUTINIOModel.ESCUELA" Role="ESCUELA" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.MESA" Role="MESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESCUELA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="MESA">
+              <PropertyRef Name="ESCUELA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PERMISO">
+          <End Type="ESCRUTINIOModel.REGLA" Role="REGLA" Multiplicity="*" />
+          <End Type="ESCRUTINIOModel.ROL" Role="ROL" Multiplicity="*" />
+        </Association>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="USUARIO1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ESCRUTINIO_CAB" Relationship="ESCRUTINIOModel.FK_ESCRUTINIO_CAB__USUARIO" FromRole="USUARIO" ToRole="ESCRUTINIO_CAB" />
+          <NavigationProperty Name="ROL" Relationship="ESCRUTINIOModel.DESIGNACION" FromRole="USUARIO" ToRole="ROL" />
+        </EntityType>
+        <Association Name="FK_ESCRUTINIO_MESA_CARGO">
+          <End Type="ESCRUTINIOModel.CARGO" Role="CARGO" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.ESCRUTINIO_MESA" Role="ESCRUTINIO_MESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_MESA">
+              <PropertyRef Name="CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ESCRUTINIO_CAB__USUARIO">
+          <End Type="ESCRUTINIOModel.USUARIO" Role="USUARIO" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.ESCRUTINIO_CAB" Role="ESCRUTINIO_CAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="ESCRUTINIO_CAB">
+              <PropertyRef Name="USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DESIGNACION">
+          <End Type="ESCRUTINIOModel.ROL" Role="ROL" Multiplicity="*" />
+          <End Type="ESCRUTINIOModel.USUARIO" Role="USUARIO" Multiplicity="*" />
+        </Association>
+        <EntityType Name="TIPO_VOTO">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwCircuitosExtranjeros">
+          <Key>
+            <PropertyRef Name="ORID" />
+            <PropertyRef Name="DESCRIPCION" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwEscuelasExtranjeras">
+          <Key>
+            <PropertyRef Name="ORID" />
+            <PropertyRef Name="DESCRIPCION" />
+            <PropertyRef Name="CIRCUITO" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CIRCUITO" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwEscuelasNacionales">
+          <Key>
+            <PropertyRef Name="ORID" />
+            <PropertyRef Name="DESCRIPCION" />
+            <PropertyRef Name="CIRCUITO" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CIRCUITO" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LISTA">
+          <Key>
+            <PropertyRef Name="ORID" />
+          </Key>
+          <Property Name="ORID" Type="Guid" Nullable="false" />
+          <Property Name="NUMERO" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_CORTA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AGRUPACION" Type="Guid" Nullable="false" />
+          <Property Name="ORDEN" Type="Int32" Nullable="false" />
+          <Property Name="CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AGRUPACION1" Relationship="ESCRUTINIOModel.FK_LISTA_AGRUPACION" FromRole="LISTA" ToRole="AGRUPACION" />
+          <NavigationProperty Name="POSTULACION" Relationship="ESCRUTINIOModel.FK_POSTULACION_LISTA" FromRole="LISTA" ToRole="POSTULACION" />
+        </EntityType>
+        <Association Name="FK_LISTA_AGRUPACION">
+          <End Type="ESCRUTINIOModel.AGRUPACION" Role="AGRUPACION" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.LISTA" Role="LISTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGRUPACION">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="LISTA">
+              <PropertyRef Name="AGRUPACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSTULACION_LISTA">
+          <End Type="ESCRUTINIOModel.LISTA" Role="LISTA" Multiplicity="1" />
+          <End Type="ESCRUTINIOModel.POSTULACION" Role="POSTULACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LISTA">
+              <PropertyRef Name="ORID" />
+            </Principal>
+            <Dependent Role="POSTULACION">
+              <PropertyRef Name="LISTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ESCRUTINIOModelStoreContainer" CdmEntityContainer="ESCRUTINIOEntities">
+          <EntitySetMapping Name="AGRUPACION">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.AGRUPACION">
+              <MappingFragment StoreEntitySet="AGRUPACION">
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CANDIDATO">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.CANDIDATO">
+              <MappingFragment StoreEntitySet="CANDIDATO">
+                <ScalarProperty Name="POSTULACION" ColumnName="POSTULACION" />
+                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
+                <ScalarProperty Name="APELLIDO" ColumnName="APELLIDO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARGO">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.CARGO">
+              <MappingFragment StoreEntitySet="CARGO">
+                <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+                <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+                <ScalarProperty Name="APLICA_EXT" ColumnName="APLICA_EXT" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CIRCUITO">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.CIRCUITO">
+              <MappingFragment StoreEntitySet="CIRCUITO">
+                <ScalarProperty Name="PRIORIDAD" ColumnName="PRIORIDAD" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESCRUTINIO_CAB">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.ESCRUTINIO_CAB">
+              <MappingFragment StoreEntitySet="ESCRUTINIO_CAB">
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="FIN" ColumnName="FIN" />
+                <ScalarProperty Name="INICIO" ColumnName="INICIO" />
+                <ScalarProperty Name="SOBRES" ColumnName="SOBRES" />
+                <ScalarProperty Name="VOTOS_EMITIDOS" ColumnName="VOTOS_EMITIDOS" />
+                <ScalarProperty Name="MESA" ColumnName="MESA" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESCRUTINIO_DET">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.ESCRUTINIO_DET">
+              <MappingFragment StoreEntitySet="ESCRUTINIO_DET">
+                <ScalarProperty Name="VOTOS" ColumnName="VOTOS" />
+                <ScalarProperty Name="MESA" ColumnName="MESA" />
+                <ScalarProperty Name="POSTULACION" ColumnName="POSTULACION" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESCRUTINIO_MESA">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.ESCRUTINIO_MESA">
+              <MappingFragment StoreEntitySet="ESCRUTINIO_MESA">
+                <ScalarProperty Name="TOTALES" ColumnName="TOTALES" />
+                <ScalarProperty Name="VALIDOS" ColumnName="VALIDOS" />
+                <ScalarProperty Name="BLANCOS" ColumnName="BLANCOS" />
+                <ScalarProperty Name="IMPUGNADOS" ColumnName="IMPUGNADOS" />
+                <ScalarProperty Name="RECURRIDOS" ColumnName="RECURRIDOS" />
+                <ScalarProperty Name="NULOS" ColumnName="NULOS" />
+                <ScalarProperty Name="CARGO" ColumnName="CARGO" />
+                <ScalarProperty Name="MESA" ColumnName="MESA" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESCUELA">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.ESCUELA">
+              <MappingFragment StoreEntitySet="ESCUELA">
+                <ScalarProperty Name="PRIVADA" ColumnName="PRIVADA" />
+                <ScalarProperty Name="CANT_MESAS" ColumnName="CANT_MESAS" />
+                <ScalarProperty Name="CIRCUITO" ColumnName="CIRCUITO" />
+                <ScalarProperty Name="LOCALIDAD" ColumnName="LOCALIDAD" />
+                <ScalarProperty Name="CONTACTO" ColumnName="CONTACTO" />
+                <ScalarProperty Name="LONGITUD" ColumnName="LONGITUD" />
+                <ScalarProperty Name="LATITUD" ColumnName="LATITUD" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESA">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.MESA">
+              <MappingFragment StoreEntitySet="MESA">
+                <ScalarProperty Name="ESCUELA" ColumnName="ESCUELA" />
+                <ScalarProperty Name="FISCAL" ColumnName="FISCAL" />
+                <ScalarProperty Name="VICEPRESIDENTE" ColumnName="VICEPRESIDENTE" />
+                <ScalarProperty Name="PRESIDENTE" ColumnName="PRESIDENTE" />
+                <ScalarProperty Name="EXTRANJERO" ColumnName="EXTRANJERO" />
+                <ScalarProperty Name="CANT_VOTANTES" ColumnName="CANT_VOTANTES" />
+                <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSTULACION">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.POSTULACION">
+              <MappingFragment StoreEntitySet="POSTULACION">
+                <ScalarProperty Name="CARGO" ColumnName="CARGO" />
+                <ScalarProperty Name="LISTA" ColumnName="LISTA" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGLA">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.REGLA">
+              <MappingFragment StoreEntitySet="REGLA">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="DEFINICION" ColumnName="DEFINICION" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PERMISO" TypeName="ESCRUTINIOModel.PERMISO" StoreEntitySet="PERMISO">
+            <EndProperty Name="ROL">
+              <ScalarProperty Name="ORID" ColumnName="ROL" />
+            </EndProperty>
+            <EndProperty Name="REGLA">
+              <ScalarProperty Name="ORID" ColumnName="REGLA" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="APELLIDO" ColumnName="APELLIDO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="USUARIO1" ColumnName="USUARIO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="DESIGNACION" TypeName="ESCRUTINIOModel.DESIGNACION" StoreEntitySet="DESIGNACION">
+            <EndProperty Name="USUARIO">
+              <ScalarProperty Name="ORID" ColumnName="USUARIO" />
+            </EndProperty>
+            <EndProperty Name="ROL">
+              <ScalarProperty Name="ORID" ColumnName="ROL" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="TIPO_VOTO">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.TIPO_VOTO">
+              <MappingFragment StoreEntitySet="TIPO_VOTO">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCircuitosExtranjeros">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.vwCircuitosExtranjeros">
+              <MappingFragment StoreEntitySet="vwCircuitosExtranjeros">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwEscuelasExtranjeras">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.vwEscuelasExtranjeras">
+              <MappingFragment StoreEntitySet="vwEscuelasExtranjeras">
+                <ScalarProperty Name="CIRCUITO" ColumnName="CIRCUITO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwEscuelasNacionales">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.vwEscuelasNacionales">
+              <MappingFragment StoreEntitySet="vwEscuelasNacionales">
+                <ScalarProperty Name="CIRCUITO" ColumnName="CIRCUITO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LISTA">
+            <EntityTypeMapping TypeName="ESCRUTINIOModel.LISTA">
+              <MappingFragment StoreEntitySet="LISTA">
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+                <ScalarProperty Name="AGRUPACION" ColumnName="AGRUPACION" />
+                <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+                <ScalarProperty Name="ORID" ColumnName="ORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

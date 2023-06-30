@@ -1,0 +1,72 @@
+﻿@model Escrutinio.Database.LISTA
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <section class="content-header">
+        <h2 class="box-title">LISTAS</h2>
+    </section>
+    
+    <section class="container">
+        
+        <div class="row">
+
+            @Html.ValidationSummary(true)
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.NUMERO)
+                @Html.TextBoxFor(model => model.NUMERO, null, new { @class = "form-control", @maxlength = "5", @onkeypress = "return soloNumeros(event);" })
+                @Html.ValidationMessageFor(model => model.NUMERO)
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.ORDEN)
+                @Html.TextBoxFor(model => model.ORDEN, null, new { @class = "form-control", @maxlength = "5", @onkeypress = "return soloNumeros(event);" })
+                @Html.ValidationMessageFor(model => model.ORDEN)
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.CODE)
+                @Html.TextBoxFor(model => model.CODE, null, new { @class = "form-control", @maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.CODE)
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.AGRUPACION)
+                @Html.DropDownList("AGRUPACION", new SelectList(ViewBag.Agrupaciones, "ORID", "Descripcion"), "SELECCIONAR...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AGRUPACION)
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.DESCRIPCION)
+                @Html.TextBoxFor(model => model.DESCRIPCION, null, new { @class = "form-control", @maxlength = "200" })
+                @Html.ValidationMessageFor(model => model.DESCRIPCION)
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.DESCRIPCION_CORTA)
+                @Html.TextBoxFor(model => model.DESCRIPCION_CORTA, null, new { @class = "form-control", @maxlength = "200" })
+                @Html.ValidationMessageFor(model => model.DESCRIPCION_CORTA)
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("VOLVER", "Index")
+        </div>
+    </section>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

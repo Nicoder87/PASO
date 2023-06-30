@@ -1,0 +1,80 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+@using Resources
+
+
+@{        
+    var grid = new WebGrid(null,                            
+                            rowsPerPage: Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CRUDGridPageSize"]), 
+                            canPage: true, 
+                            canSort: true, 
+                            ajaxUpdateContainerId: "ajaxGrid",
+							ajaxUpdateCallback: "WebGridCallBack");
+                               
+    grid.Bind(Model, autoSortAndPage: true);
+}
+
+<div id="ajaxGrid">
+			<div class="table-responsive ">
+			    @grid.GetHtml(tableStyle: "table table-striped bootgrid-table", 
+                    mode: WebGridPagerModes.All, 
+                    columns: new[]
+                    {      
+<#
+	IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+	string primaryKeyColumn = string.Empty;
+	
+	foreach (PropertyMetadata property in properties) {
+		if(property.IsPrimaryKey){
+			primaryKeyColumn = property.PropertyName;
+#>
+			grid.Column(null, null, format: @<input type="hidden" name="Id" id="<#= primaryKeyColumn #>" value="<#= primaryKeyColumn #>"/>),                       
+<#        }
+		if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+						grid.Column(columnName:"<#= property.PropertyName #>", header: Server.HtmlDecode(Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>).ToString()), canSort: true),                        
+<#  			
+		}
+    }
+
+#>      
+                        grid.Column(columnName: null, canSort:false, style: "actionColumn", format:
+                            @<text>
+
+							@if(ViewBag.PermiteVer){
+								<a class="grid-button hidden-xs" href='@Url.Action("Details", new { id = item.<#= primaryKeyColumn #>})'><span class="zmdi zmdi-eye"></span></a>
+								}
+							@if(ViewBag.PermiteEditar){
+								<a class="grid-button hidden-xs" href='@Url.Action("Edit", new { id = item.<#= primaryKeyColumn #> })'><span class="zmdi zmdi-edit"></span></a>
+							}
+							@if(ViewBag.PermiteEliminar){
+								<a href="#" class="grid-button hidden-xs" onclick="confirmDelete('@Url.Action("Delete")','@item.<#= primaryKeyColumn #>')"><i class="zmdi zmdi-delete"></i></a>
+                            }
+								<ul class="actions visible-xs">
+									<li class="dropdown dropup">
+                
+										<a href="#" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
+										<ul class="dropdown-menu dropdown-menu-right" style="max-height: 304px; overflow-y: auto; min-height: 0px;">
+								
+                                @if(ViewBag.PermiteEditar){
+									<li>
+										<a href='@Url.Action("Edit", new { id = item.<#= primaryKeyColumn #>  })'><i class="zmdi zmdi-edit">&nbsp&nbsp</i> @Resources.Edit</a>
+									</li>
+                                    
+                                }
+                                @if(ViewBag.PermiteEliminar){
+                                    <li>
+										<a href="#" onclick="confirmDelete('@Url.Action("Delete")','@item.<#= primaryKeyColumn #>')"><i class="zmdi zmdi-delete"></i>  @Resources.Delete</a>
+									</li>
+                                }
+								</ul>
+                            </text>)
+                },
+                footerStyle: "webgrid-footer")
+		</div>
+    </div>
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

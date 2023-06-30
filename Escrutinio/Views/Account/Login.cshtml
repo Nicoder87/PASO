@@ -1,0 +1,45 @@
+﻿@model Escrutinio.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="login-box">
+    <div class="login-logo">
+        <h1>Escrutinio 2019</h1>
+        <h2>Lomas de Zamora</h2>
+    </div>
+    <div class="login-box-body">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "lcb-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(m => Model.UserName, new { @placeholder = "Usuario", @class = "form-control", @maxlength = "30" })
+                @Html.ValidationMessageFor(m => Model.UserName)
+            </div>
+            <div class="form-group has-feedback">
+                @Html.PasswordFor(m => Model.Password, new { @placeholder = "Password", @class = "form-control", @maxlength = "30" })
+                @Html.ValidationMessageFor(m => Model.Password)
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <button type="submit" id="login" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+                </div>
+                @*<div class="col-xs-12">
+                    <p></p>
+                    <a target="_blank" href="~/Videos/1-Login/index.html">¿Necesita ayuda?</a>
+                </div>*@
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+    var txtBox = document.getElementById("UserName");
+    if (txtBox != null) txtBox.focus();
+</script>

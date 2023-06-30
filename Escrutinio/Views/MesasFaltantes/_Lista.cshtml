@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Escrutinio.Models.MesasFaltantesIndexModel>
+
+<table id="example1" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                CIRCUITO
+            </th>
+            @*<th>
+                ESCUELA
+            </th>*@
+            <th>
+                MESA
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CIRCUITO)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.ESCUELA)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.MESA)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                CIRCUITO
+            </th>
+            @*<th>
+                ESCUELA
+            </th>*@
+            <th>
+                MESA
+            </th>
+        </tr>
+    </tfoot>
+</table>

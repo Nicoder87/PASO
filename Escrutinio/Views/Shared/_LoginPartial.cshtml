@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNet.Identity
+@using Escrutinio.Helpers
+
+@Html.AntiForgeryToken()
+
+<div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="hidden-xs">@Html.Raw(AccountHelper.GetCurrentUserName())</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="user-header">
+                    <img src="~/Images/users/user.jpg" class="img-circle" alt="User Image">
+                    <p>
+                        @Html.Raw(AccountHelper.GetCurrentNyA())
+                    </p>
+                </li>
+                <li class="user-footer">
+                    <div class="pull-left">
+                        <a href="~/Usuario/UpdatePassword" title="Cambiar Password"><h3><i class="fa fa-key"></i></h3></a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="~/Account/LogOff" title="Cerrar Sesión"><h3><i class="fa fa-power-off"></i></h3></a>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</div>

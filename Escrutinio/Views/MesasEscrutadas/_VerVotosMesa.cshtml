@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Escrutinio.Models.PostulacionModel>
+
+<style>
+    hr {
+        height: 1px;
+    }
+</style>
+
+<div class="row" style="padding-top:15px;">
+
+    @foreach (var p in Model)
+    {
+        if (p.OrdenCargo == 1)
+        {
+            <div class="form-group col-xs-3">
+                <label>@p.DescLista</label>
+            </div>
+        }
+        if (p.ORID != @Guid.Parse("00000000-0000-0000-0000-000000000000"))
+        {
+            <div class="form-group col-xs-1">
+                <input type="text" value="@p.Votos" class="form-control" maxlength="3" onkeypress="return soloNumeros(event);" />
+                <input type="text" name="postulacion" value="@p.ORID" style="display:none" />
+            </div>
+        }
+        else
+        {
+            <div class="form-group col-xs-1">
+                <input type="text" class="form-control" style="background-color: #3c8dbc;" disabled />
+            </div>
+        }
+
+        if (p.OrdenCargo == 5)
+        {
+            <div class="row">
+                <hr style="background-color:transparent" />
+            </div>
+        }
+    }
+</div>

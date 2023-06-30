@@ -1,0 +1,499 @@
+﻿@model Escrutinio.Models.VotosModel
+
+@{
+    var tipo = Model.TIPO;
+}
+
+<div class="row">
+
+    <div class="cabe col-xs-4">
+        LISTA
+    </div>
+
+    @if (!Convert.ToBoolean(tipo) || tipo == null)
+    {
+        <div class="cabe col-xs-1">
+            PRESIDENTE
+        </div>
+        <div class="cabe col-xs-1">
+            DIP_NAC
+        </div>
+    }
+
+    <div class="cabe col-xs-1">
+        GOBERNADOR
+    </div>
+    <div class="cabe col-xs-1">
+        LEG_PROV
+    </div>
+    <div class="cabe col-xs-1">
+        INTENDENTE
+    </div>
+
+</div>
+
+@foreach (var item in Model.LISTAS_COMPLETAS)
+{
+    <div class="row">
+
+        @*<div class="pad1 col-xs-4">
+           @item.AGRUPACION - @item.LISTA
+        </div>*@
+
+        <div class="pad1 col-xs-4">
+            @item.Code - @item.DESCRIPCION_CORTA - @item.LISTA
+        </div>
+
+        @if (!Convert.ToBoolean(tipo) || tipo == null)
+        {
+            if (item.PRESIDENTE == null)
+            {
+                <div class="noc col-xs-1">
+                    <span style="color:#FFF">no usar</span>
+                </div>
+            }
+            else
+            {
+                <div class="pad2 col-xs-1">
+                    @item.PRESIDENTE
+                </div>
+            }
+
+            if (item.DIP_NAC == null)
+            {
+                <div class="noc col-xs-1">
+                    <span style="color:#FFF">no usar</span>
+                </div>
+            }
+            else
+            {
+                <div class="pad2 col-xs-1">
+                    @item.DIP_NAC
+                </div>
+            }
+        }
+
+        @if (item.GOBERNADOR == null)
+        {
+            <div class="noc col-xs-1">
+                <span style="color:#FFF">no usar</span>
+            </div>
+        }
+        else
+        {
+            <div class="pad2 col-xs-1">
+                @item.GOBERNADOR
+            </div>
+        }
+
+        @if (item.LEG_PROV == null)
+        {
+            <div class="noc col-xs-1">
+                <span style="color:#FFF">no usar</span>
+            </div>
+        }
+        else
+        {
+            <div class="pad2 col-xs-1">
+                @item.LEG_PROV
+            </div>
+        }
+
+        @if (item.INTENDENTE == null)
+        {
+            <div class="noc col-xs-1">
+                <span style="color:#FFF">no usar</span>
+            </div>
+        }
+        else
+        {
+            <div class="pad2 col-xs-1">
+                @item.INTENDENTE
+            </div>
+        }
+    </div>
+}
+
+@* ///////////////// OTROS VOTOS ///////////////// *@
+
+<div class="row" style="padding-top:20px;">
+
+    <div class="cabe col-xs-4">
+        VÁLIDOS
+    </div>
+
+    @foreach (var item in Model.OTROS_VOTOS)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.VALIDOS (@item.VALIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @item.VALIDOS (@item.VALIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @item.VALIDOS (@item.VALIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @item.VALIDOS (@item.VALIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.VALIDOS (@item.VALIDOS_PERCENT %)
+            </div>
+        }
+    }
+</div>
+
+<div class="row" style="padding-top:20px">
+
+    <div class="cabe col-xs-4">
+        BLANCOS
+    </div>
+
+    @foreach (var item in Model.OTROS_VOTOS)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.BLANCOS (@item.BLANCOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @item.BLANCOS (@item.BLANCOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @item.BLANCOS (@item.BLANCOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @item.BLANCOS (@item.BLANCOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.BLANCOS (@item.BLANCOS_PERCENT %)
+            </div>
+        }
+    }
+</div>
+
+<div class="row">
+
+    <div class="cabe col-xs-4">
+        NULOS
+    </div>
+
+    @foreach (var item in Model.OTROS_VOTOS)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.NULOS (@item.NULOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @item.NULOS (@item.NULOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @item.NULOS (@item.NULOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @item.NULOS (@item.NULOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.NULOS (@item.NULOS_PERCENT %)
+            </div>
+        }
+    }
+</div>
+
+<div class="row">
+
+    <div class="cabe col-xs-4">
+        IMPUGNADOS
+    </div>
+
+    @foreach (var item in Model.OTROS_VOTOS)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.IMPUGNADOS (@item.IMPUGNADOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @item.IMPUGNADOS (@item.IMPUGNADOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @item.IMPUGNADOS (@item.IMPUGNADOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @item.NULOS (@item.IMPUGNADOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.IMPUGNADOS (@item.IMPUGNADOS_PERCENT %)
+            </div>
+        }
+    }
+</div>
+
+<div class="row">
+
+    <div class="cabe col-xs-4">
+        RECURRIDOS
+    </div>
+
+    @foreach (var item in Model.OTROS_VOTOS)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.RECURRIDOS (@item.RECURRIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @item.RECURRIDOS (@item.RECURRIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @item.RECURRIDOS (@item.RECURRIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @item.RECURRIDOS (@item.RECURRIDOS_PERCENT %)
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.RECURRIDOS (@item.RECURRIDOS_PERCENT %)
+            </div>
+        }
+    }
+</div>
+
+<div class="row" style="padding-top:20px;">
+
+    <div class="cabe col-xs-4">
+        TOTALES
+    </div>
+
+    @foreach (var item in Model.OTROS_VOTOS)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.TOTALES
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @item.TOTALES
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @item.TOTALES
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @item.TOTALES
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @item.TOTALES
+            </div>
+        }
+    }
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="row">
+
+        <div class="pad1 col-xs-1" style="background-color: #FFF; color:white; font-weight:700">
+            CARGO
+        </div>
+        <div class="cabe col-xs-1">
+            VÁLIDOS
+        </div>
+        <div class="cabe col-xs-1">
+            BLANCOS
+        </div>
+        <div class="cabe col-xs-1">
+            NULOS
+        </div>
+        <div class="cabe col-xs-1">
+            IMPUGNADOS
+        </div>
+        <div class="cabe col-xs-1">
+            RECURRIDOS
+        </div>
+
+    </div>
+
+    @foreach (var item in Model.OTROS_VOTOS)
+    {
+        <div class="row">
+
+            <div class="pad1 col-xs-1">
+                @item.DESCRIPCION
+            </div>
+            <div class="pad2 col-xs-1">
+                @item.VALIDOS
+            </div>
+            <div class="pad2 col-xs-1">
+                @item.BLANCOS (@item.BLANCOS_PERCENT %)
+            </div>
+            <div class="pad2 col-xs-1">
+                @item.NULOS (@item.NULOS_PERCENT %)
+            </div>
+            <div class="pad2 col-xs-1">
+                @item.IMPUGNADOS (@item.IMPUGNADOS_PERCENT %)
+            </div>
+            <div class="pad2 col-xs-1">
+                @item.RECURRIDOS (@item.RECURRIDOS_PERCENT %)
+            </div>
+        </div>
+    }
+
+    @*<style>
+        .fullscreen-modal .modal-dialog {
+            margin: 0;
+            margin-right: auto;
+            margin-left: auto;
+            width: 100%;
+        }
+    </style>
+
+    <div class="modal fullscreen-modal fade" id="modalListasCompletas" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #0066a7; color:white;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">LISTAS COMPLETAS</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div id="cacho" class="row">
+
+                        <div id="completas" style="font-size:20px; padding:10px;">
+                            <div class="row">
+                                <div class="cabe col-xs-1">
+                                    LISTA
+                                </div>
+                                <div class="cabe col-xs-1">
+                                    INTENDENTE
+                                </div>
+                                <div class="cabe col-xs-1">
+                                    GOBERNADOR
+                                </div>
+                                <div class="cabe col-xs-1">
+                                    DIP_NAC
+                                </div>
+                                <div class="cabe col-xs-1">
+                                    LEG_PROV
+                                </div>
+                                <div class="cabe col-xs-1">
+                                    PRESIDENTE
+                                </div>
+                            </div>
+                            @foreach (var item in Model)
+                            {
+                                <div class="row">
+                                    <div class="pad2 col-xs-1">
+                                        @item.DESCRIPCION
+                                    </div>
+                                    <div class="pad2 col-xs-1">
+                                        @item.INTENDENTE
+                                    </div>
+                                    <div class="pad2 col-xs-1">
+                                        @item.GOBERNADOR
+                                    </div>
+                                    <div class="pad2 col-xs-1">
+                                        @item.DIP_NAC
+                                    </div>
+                                    <div class="pad2 col-xs-1">
+                                        @item.LEG_PROV
+                                    </div>
+                                    <div class="pad2 col-xs-1">
+                                        @item.PRESIDENTE
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <input type="button" id="btnGuardarPracticasLaboratorio" class="btn btn-default" value="@Resources.Guardar">
+                    <input type="button" id="btnCancelar" class="btn btn-default" value="Cancelar">
+                    <input type="button" value="Print" onclick="javascript:printDiv('cacho')" />
+
+                </div>
+            </div>
+        </div>
+    </div>*@

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Escrutinio.Models.CircuitosEscrutadosIndexModel>
+@using System.Configuration
+
+@{
+    ViewBag.Title = "CIRCUITOS ESCRUTADOS";
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+<section class="content-header">
+    <h3 class="box-title">@ViewBag.Title</h3>
+</section>
+
+<section id="TODO" class="content">
+
+    <div class="col-md-12">
+        <input type="button" value="IMPRIMIR TABLA" onclick="javascript: printDiv('TODO')" />
+    </div>
+
+    <input type="text" id="TIPOK" style="display:none;">
+
+    @Html.Partial("_Lista", (List<Escrutinio.Models.CircuitosEscrutadosIndexModel>)Model)
+
+</section>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatables/dataTables.bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        jQuery.noConflict();
+        jQuery("#example1").DataTable({
+            "ordering": false,
+            "paging": false,
+            'searching': false
+        });
+
+    </script>
+}

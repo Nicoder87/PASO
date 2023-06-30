@@ -1,0 +1,85 @@
+﻿@model Escrutinio.Models.CargaModel
+@using System.Configuration
+
+@{
+    ViewBag.Title = "VER";
+    List<Escrutinio.Database.CARGO> cargos = ViewBag.Cargos;
+    Layout = "~/Views/Shared/_LayoutCarga.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.ORID_MESA)
+
+    <section class="content-header">
+        <h2 class="box-title">DETALLE DE MESA</h2>
+        @if (ViewBag.Usuario == "siit")
+        {
+            <button type="submit"> BORRAR MESA </button>
+        }
+    </section>
+
+    <section class="content-header">
+
+        <div class="row">
+
+            <div class="form-group col-xs-2">
+                @Html.LabelFor(model => model.Mesa)
+                @Html.TextBoxFor(model => model.Mesa, new { @class = "form-control", disabled = "disabled" })
+            </div>
+
+            <div class="form-group col-xs-2">
+                @Html.LabelFor(model => model.Votos_emitidos)
+                @Html.TextBoxFor(model => model.Votos_emitidos, new { @class = "form-control", disabled = "disabled" })
+            </div>
+
+            <div id="mesaDiv">
+                @Html.Partial("_DatosMesa", Model.MesaModel)
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="ver" style="padding:20px">
+
+        @* CARGOS *@
+
+        <div class="row">
+
+            <div class="col-xs-3" style="font-style:oblique">LISTAS / CARGOS</div>
+
+            @foreach (var c in cargos)
+            {
+                <div class="col-xs-1" style="font-style:oblique">
+                    @Html.DisplayFor(modelItem => c.DESCRIPCION)
+                </div>
+            }
+
+        </div>
+
+        @* VOTOS *@
+
+        <div id="postulacionesDiv">
+
+            @Html.Partial("_VerVotosMesa", Model.ListaPostulacion)
+
+        </div>
+
+        @* OTROS VOTOS *@
+
+        <div id="ValidosTotalesDiv">
+
+            @Html.Partial("_VerVotosMesaVT", Model.otros_votos)
+
+        </div>
+
+    </section>
+
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

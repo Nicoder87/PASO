@@ -1,0 +1,250 @@
+﻿@model Escrutinio.Models.CargaModel
+
+@{
+    ViewBag.Title = "Carga";
+    List<Escrutinio.Database.CARGO> cargos = ViewBag.Cargos;
+    Layout = "~/Views/Shared/_LayoutCarga.cshtml";
+}
+
+<link href="~/Content/alertify/alertify.core.css" rel="stylesheet" />
+<link href="~/Content/alertify/alertify.default.css" rel="stylesheet" />
+
+@using (Html.BeginForm("Create", "Carga", FormMethod.Post, new { onpaste = "return false" }))
+{
+    @Html.HiddenFor(model => model.InicioCarga)
+
+    <section class="content-header">
+
+        <div class="row">
+
+            <div class="form-group col-md-2">
+                @Html.LabelFor(model => model.Mesa)
+
+                <input type="text" id="Mesa" name="Mesa" class="form-control"
+                       maxlength="4" onkeyup="BuscarMesa(this, event);"
+                       onkeypress="return SoloNumeros(event);" required />
+            </div>
+
+            <div class="form-group col-md-2">
+                @Html.LabelFor(model => model.Votos_emitidos)
+
+                <input type="text" id="Votos_emitidos" name="Votos_emitidos" class="form-control"
+                       maxlength="3" onkeyup="Pasar(this, event);"
+                       onkeypress="return SoloNumeros(event);" required />
+            </div>
+
+            <div id="MesaDiv">
+
+                @Html.Partial("_DatosMesa", Model.MesaModel)
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="carga" style="display:none; padding:20px">
+
+        @* CARGOS *@
+
+        <div class="row">
+
+            <div class="col-md-3" style="font-style:oblique">LISTAS / CARGOS</div>
+
+            @foreach (var c in cargos)
+            {
+                <div class="col-md-1" style="font-style:oblique">
+                    @Html.DisplayFor(modelItem => c.DESCRIPCION)
+                </div>
+            }
+
+        </div>
+
+        @* VOTOS *@
+
+        <div id="PostulacionesDiv">
+
+            @Html.Partial("_Postulaciones", Model.ListaPostulacion)
+
+        </div>
+
+        @* VÁLIDOS Y TOTALES *@
+
+        <div id="ValidosTotalesDiv">
+
+            @Html.Partial("_ValidosTotales", Model.ValidosTotales)
+
+        </div>
+
+        <div class="col-md-6"></div>
+        <div class="col-md-4">
+            <div class="col-md-6" style="padding:30px;">
+                <button id="btnSubmit" type="submit" class="btn btn-primary" style="width:100%;">Cargar Acta</button>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+        <div class="col-md-2"></div>
+
+    </section>
+
+    <section id="foto" class="content-header">
+        <div class="row">
+            @*<div class="col-md-6">
+                <img src="~/Images/principal/FT19.png" class="img-responsive" />
+            </div>*@
+            <div class="col-md-12">
+                <img src="~/Images/principal/2019.jpg" class="img-responsive" />
+            </div>
+        </div>
+    </section>
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/escrutinio.js"></script>
+    <script src="~/Content/alertify/alertify.js"></script>
+    <script src="~/Content/alertify/alertify.min.js"></script>
+
+    <script type="text/javascript">
+
+        var txtBox = document.getElementById("Mesa"); if (txtBox != null) txtBox.focus();
+
+        $(document).ready(function () {
+
+            if ('@ViewBag.MessageOk' != '') {
+                cartelitoOk('@ViewBag.MessageOk');
+            }
+        });
+
+        $("#Mesa").change(function () {
+
+            var m = $(this).val();
+            if (m != '') {
+                CargoDatosMesa(m);
+            }
+
+        });
+
+        function CargoDatosMesa(m) {
+
+            $("#MesaDiv").load('@Url.Action("GetDatosMesa", "Carga")' + '?mesa=' + m)
+
+            var _url = '@Url.Action("VerificoMesa", "Carga")' + '?mesa=' + m;
+
+            $.ajax({
+                url: _url,
+                type: 'post',
+                success: function (data) {
+
+                    if (data.vm == "0") {
+
+                        document.getElementById("carga").style.display = "none";
+                        document.getElementById("foto").style.display = "block";
+
+                        cartelitoInfo("El Acta no existe");
+                        return;
+
+                    }
+                    else if (data.vm == "1") {
+
+                        document.getElementById("carga").style.display = "none";
+                        document.getElementById("foto").style.display = "block";
+
+                        cartelitoInfo("El Acta ya se cargó");
+                        return;
+
+                    }
+                    else {
+
+                        $("#PostulacionesDiv").load('@Url.Action("GetPostulaciones", "Carga")' + '?mesa=' + m)
+                        $("#ValidosTotalesDiv").load('@Url.Action("GetValidosTotales", "Carga")' + '?mesa=' + m)
+
+                        var ic = document.getElementById('InicioCarga');
+                        ic.value = data.vm;
+
+                        document.getElementById("foto").style.display = "none";
+                        document.getElementById("carga").style.display = "block";
+                    }
+                }
+            });
+        }
+
+
+        $('form').submit(function (e) {
+
+            var ve = parseInt($('#Votos_emitidos').val());
+            var cv = parseInt($('#CantVotantes').val());
+            var t1 = parseInt($('#TOTAL0001').val());
+            var t2 = parseInt($('#TOTAL0002').val());
+            var t3 = parseInt($('#TOTAL0003').val());
+            var t4 = parseInt($('#TOTAL0004').val());
+            var t5 = parseInt($('#TOTAL0005').val());
+
+            var q = $('#Tipo').val();
+
+            if (ve > cv)
+            {
+                e.preventDefault();
+                cartelitoError("Error de Acta!!! Tiene más Votos Emitidos que Cantidad de Votantes");
+                return;
+            }
+
+            if (q == 'NACIONALES') {
+
+                if (t1 > ve || t2 > ve || t3 > ve || t4 > ve || t5 > ve ) {
+                    e.preventDefault();
+                    cartelitoError("Error de Acta!!! Son " + ve + " votos emitidos.");
+                    return;
+                }
+
+                if (t1 == 0 && t2 == 0 && t3 == 0 && t4 == 0 && t5 == 0) {
+                    e.preventDefault();
+                    cartelitoError("Todos los cargos están en 0");
+                    return;
+                }
+
+                if ($('#TOTAL0001').val() == "" && $('#TOTAL0002').val() == "" &&
+                    $('#TOTAL0003').val() == "" && $('#TOTAL0004').val() == "" && $('#TOTAL0005').val() == "") {
+                    e.preventDefault();
+                    cartelitoError("Todos los cargos están en 0");
+                    return;
+                }
+
+            }
+            else {
+
+                if (t3 > ve || t4 > ve || t5 > ve) {
+                    e.preventDefault();
+                    cartelitoError("Error de Acta!!! Son " + ve + " votos emitidos.");
+                    return;
+                }
+
+                if (t3 == 0 && t4 == 0 && t5 == 0) {
+                    e.preventDefault();
+                    cartelitoError("Todos los cargos están en 0");
+                    return;
+                }
+
+                if ($('#TOTAL0003').val() == "" && $('#TOTAL0004').val() == "" && $('#TOTAL0005').val() == "") {
+                    e.preventDefault();
+                    cartelitoError("Todos los cargos están en 0");
+                    return;
+                }
+
+            }
+
+            var valid = true;
+            $("form").each(function () {
+                valid = valid && $(this).valid();
+            }); if (!valid) return;
+
+            document.getElementById("btnSubmit").value = "Enviando...";
+            document.getElementById("btnSubmit").disabled = true;
+
+            return true;
+        });
+
+    </script>
+
+}

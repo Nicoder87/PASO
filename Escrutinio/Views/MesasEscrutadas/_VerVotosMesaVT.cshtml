@@ -1,0 +1,253 @@
+﻿@model IEnumerable<Escrutinio.Models.TotalesOtrosVotosModel>
+
+@{
+    List<Escrutinio.Database.CARGO> cargos = ViewBag.Cargos;
+}
+
+<div class="row" style="padding-top:15px;">
+
+    <div class="cabe col-xs-3">
+        VÁLIDOS
+    </div>
+
+    @foreach (var item in Model)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.VALIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.VALIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.VALIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.VALIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.VALIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+    }
+</div>
+
+
+<div class="row" style="padding-top:15px">
+
+    <div class="form-group cabe col-xs-3">
+        NULOS
+    </div>
+
+    @foreach (var item in Model)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.NULOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.NULOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.NULOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.NULOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.NULOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+    }
+</div>
+
+<div class="row">
+
+    <div class="form-group cabe col-xs-3">
+        RECURRIDOS
+    </div>
+
+    @foreach (var item in Model)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.RECURRIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.RECURRIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.RECURRIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.RECURRIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.RECURRIDOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+    }
+</div>
+
+<div class="row">
+
+    <div class="form-group cabe col-xs-3">
+        IMPUGNADOS
+    </div>
+
+    @foreach (var item in Model)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.IMPUGNADOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.IMPUGNADOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.IMPUGNADOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.IMPUGNADOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.IMPUGNADOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+    }
+</div>
+
+
+<div class="row" style="padding-top:15px">
+
+    <div class="form-group cabe col-xs-3">
+        BLANCOS
+    </div>
+
+    @foreach (var item in Model)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.BLANCOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.BLANCOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.BLANCOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.BLANCOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="form-group pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.BLANCOS, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+    }
+</div>
+
+<div class="row" style="padding-top:20px;">
+
+    <div class="cabe col-xs-3">
+        TOTALES
+    </div>
+
+    @foreach (var item in Model)
+    {
+        if (item.DESCRIPCION == "PRESIDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.TOTALES, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "DIP_NAC")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.TOTALES, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "GOBERNADOR")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.TOTALES, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "LEG_PROV")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.TOTALES, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+        if (item.DESCRIPCION == "INTENDENTE")
+        {
+            <div class="pad2 col-xs-1">
+                @Html.TextBoxFor(model => item.TOTALES, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        }
+    }
+</div>

@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LDZ</title>
+    <link rel="icon" type="image/x-icon" href="~/todos.ico" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/Escrutinio.css" rel="stylesheet" media="all" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <style type="text/css">
+
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #ffffffcf;
+        }
+
+            .loader img {
+                position: relative;
+                left: 40%;
+                top: 40%;
+            }
+
+    </style>
+
+    <script>
+
+        function printDiv(divID) {
+
+            var divElements = document.getElementById(divID).innerHTML;
+
+            var oldPage = document.body.innerHTML;
+
+            document.body.innerHTML =
+                "<html><head><title></title></head><body>" +
+                divElements + "</body>";
+
+            window.print();
+
+            document.body.innerHTML = oldPage;
+
+        }
+
+    </script>
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+
+    <div class="loader">
+        <img src="~/loader.gif" />
+    </div>
+
+    <div class="wrapper">
+        <header class="main-header">
+            <a href="@Url.Action("Index", "Home")" class="logo hidden-xs">
+                <span class="logo-mini"><b>Lde</b>Z</span>
+                <span class="logo-lg"><b>Lde</b> Z</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                @Html.Partial("_LoginPartial")
+            </nav>
+        </header>
+        @Html.Partial("_LeftColumn")
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0
+            </div>
+            <strong>Copyright &copy; 2019 SIIT</strong> Todos los derechos reservados
+        </footer>
+
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        window.onload = function () {
+
+            $('.loader').fadeOut();
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

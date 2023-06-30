@@ -1,0 +1,36 @@
+﻿<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>VOTOS</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li style="padding-top:10px;" class="hidden-xs"><a href="@Url.Action("Index", "Todos")"><i class="fa fa-circle-o"></i> RESULTADOS</a></li>
+                    <li style="padding-top:10px;" class="visible-xs"><a href="@Url.Action("IndexMovil", "Todos")"><i class="fa fa-circle-o"></i> RESULTADOS</a></li>
+                    <li style="padding-top:10px;" class="hidden-xs"><a href="@Url.Action("Index", "PASO")"><i class="fa fa-circle-o"></i> PASO</a></li>
+                    <li style="padding-top:10px;" class="visible-xs"><a href="@Url.Action("IndexMovil", "PASO")"><i class="fa fa-circle-o"></i> PASO</a></li>
+                    <li style="padding-top:10px;"><a href="@Url.Action("CargoLista", "Resultados")"><i class="fa fa-circle-o"></i> POR CARGO</a></li>
+                    @*<li><a href="@Url.Action("CargoCircuito", "Resultados")"><i class="fa fa-circle-o"></i> BARRAS</a></li>*@
+                    <li style="padding-top:10px;" class="hidden-xs"><a href="@Url.Action("Concejales", "Resultados")"><i class="fa fa-circle-o"></i> CONCEJALES</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>DATOS CARGA</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li style="padding-top:10px;"><a href="@Url.Action("Index", "CircuitosEscrutados")"><i class="fa fa-circle-o"></i> % CIRC ESCR</a></li>
+                    <li style="padding-top:10px;"><a href="@Url.Action("Index", "MesasFaltantes")"><i class="fa fa-circle-o"></i> MESAS FALT</a></li>
+                    <li style="padding-top:10px;" class="hidden-xs"><a href="@Url.Action("Index", "MesasEscrutadas")"><i class="fa fa-circle-o"></i> MESAS ESCR</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>

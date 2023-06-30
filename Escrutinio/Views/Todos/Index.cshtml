@@ -1,0 +1,212 @@
+﻿@model Escrutinio.Models.TodosModel
+
+@{
+    ViewBag.Title = "Escrutinio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    <section id="totales" class="content">
+
+        <input type="text" id="TIPOK" style="display:none;">
+
+        <h2>TODOS</h2>
+
+        <div style="font-size:12px; padding:10px;">
+            @Html.Partial("_pcFiltros")
+        </div>
+
+        <div id="referencias" style="font-size:12px; padding:10px;">
+            @Html.Partial("_pcReferencias", (List<Escrutinio.Models.TotalesReferenciaModel>)Model.REFERENCIA)
+        </div>
+
+        <div id="votos" style="font-size:12px; padding:10px;">
+            @Html.Partial("_pcVotos", Model.VOTOS)
+        </div>
+
+        <input type="button" class="hidden-xs" value="Print" onclick="javascript:printDiv('totales')" />
+
+    </section>
+}
+
+@section Scripts {
+
+    <script>
+
+    $("#IdTipo").change(function () {
+
+        var tipo = null;
+        $('#TIPOK').val(null);
+        //var circuito = $('#IdCircuito').val();
+        var circuito = '';
+        //var escuela = $('#IdEscuela').val();
+        var escuela = '';
+
+        var ValComboTipo = $(this).val();
+        if (ValComboTipo == "0002") {
+            var tipo = false;
+            $('#TIPOK').val(false);
+        }
+        if (ValComboTipo == "0003") {
+            var tipo = true;
+            $('#TIPOK').val(true);
+        }
+
+        // CIRCUITOS
+
+        $.getJSON('@Url.Action("GetCircuitos", "Todos")' + "?tipo=" + ValComboTipo, function (result) {
+            $("#IdCircuito").html("");
+            $("#IdCircuito").append("<option value>TODOS</option>")
+            var data = result.data;
+            for (var i = 0; i < data.length; i++) {
+                $("#IdCircuito").append("<option value='" + data[i].ORID +"'>"+ data[i].DESCRIPCION +"</option>")
+            }
+        })
+
+        // ESCUELAS
+
+        $.getJSON('@Url.Action("GetEscuelas", "Todos")' + "?tipo=" + ValComboTipo + "&circuito=" + circuito, function (result) {
+            $("#IdEscuela").html("");
+            $("#IdEscuela").append("<option value>TODAS</option>")
+            var data = result.data;
+            for (var i = 0; i < data.length; i++) {
+                $("#IdEscuela").append("<option value='" + data[i].ORID +"'>"+ data[i].DESCRIPCION +"</option>")
+            }
+        })
+
+        //
+
+        ActualizarDatos(tipo, circuito, escuela);
+    });
+
+
+    $("#IdCircuito").change(function () {
+
+        var circuito = $(this).val();
+        var tipo = $('#TIPOK').val();
+        var tipoCombo = $('#IdTipo').val();
+
+        $.getJSON('@Url.Action("GetEscuelas", "Todos")' + "?tipo=" + tipoCombo + "&circuito=" + circuito, function (result) {
+            $("#IdEscuela").html("");
+            $("#IdEscuela").append("<option value>TODAS</option>")
+
+            var data = result.data;
+
+            for (var i = 0; i < data.length; i++) {
+                $("#IdEscuela").append("<option value='" + data[i].ORID +"'>"+ data[i].DESCRIPCION +"</option>")
+            }
+        })
+
+        ActualizarDatos(tipo, circuito, null);
+
+    });
+
+
+    $("#IdEscuela").change(function () {
+
+        var tipo = $('#TIPOK').val();
+        var circuito = $('#IdCircuito').val();
+        var escuela = $(this).val();
+
+        ActualizarDatos(tipo, circuito, escuela);
+
+    });
+
+    /////////////////////////
+
+    function ActualizarDatos(tipo, circuito, escuela) {
+
+        if (circuito == "") { circuito == null; };
+        if (escuela == "") { escuela == null; };
+
+        var _url = '@Url.Action("Referencias", "Todos")' + '?circuito=' +
+            circuito + '&escuela=' + escuela + '&extranjero=' + tipo + '&v=pc';
+
+        $.ajax({
+            url: _url,
+            type: 'post',
+            success: function (response) {
+
+                $('#referencias').html(response); // REFERENCIAS
+
+                var _url2 = '@Url.Action("Votos", "Todos")' + '?circuito=' +
+                    circuito + '&escuela=' + escuela + '&extranjero=' + tipo + '&v=pc';
+
+                $.ajax({
+                    url: _url2,
+                    type: 'post',
+                    success: function (response) {
+
+                        $('#votos').html(response); // OTROS VOTOS
+
+                    }
+                });
+            }
+        });
+    }
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="row" style="font-size:20px;">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #0066A7; opacity:0.8;">
+                    <h4 class="panel-title" style="color:white">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#">FILTROS</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2" style="text-align:center;">
+                                <input type="radio" style="width:100%; border:0px; height:1em;" name="tipo" id="Todos" value="null" checked>
+                                <label>TODOS</label>
+                            </div>
+                            <div class="col-md-2" style="text-align:center;">
+                                <input type="radio" style="width:100%; border:0px; height:1em;" name="tipo" id="Nacionales" value="false">
+                                <label>NACIONALES</label>
+                            </div>
+                            <div class="col-md-2" style="text-align:center;">
+                                <input type="radio" style="width:100%; border:0px; height:1em;" name="tipo" id="Extranjeros" value="true">
+                                <label>EXTRANJEROS</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label style="padding-right:20px;" class="control-label">LISTAS COMPLETAS</label>
+        <a data-toggle="modal" data-target="#modalListasCompletas">
+            <i class="fa fa-pencil fa-lg"></i>
+        </a>
+    </div>*@
+
+@*$(document).ready(function () {
+
+        $("input[name=tipo]").change(function () {
+
+            var ext = $(this).val();
+            var cir = $('#IdCircuito').val();
+            var esc = $('#IdEscuela').val();
+            $('#TIPOK').val(ext);
+            var accion = true;
+
+            ActualizarDatos(cir, esc, ext, accion);
+
+        });
+    });*@

@@ -1,0 +1,146 @@
+﻿@model Escrutinio.Models.TodosModel
+
+@{
+    ViewBag.Title = "Escrutinio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <section class="content">
+
+        <input type="text" id="TIPOK" style="display:none;">
+
+        <h2>PASO</h2>
+
+        <div style="font-size:12px; padding:5px;">
+            @Html.Partial("_vmFiltros")
+        </div>
+
+        <div id="m_referencias" style="font-size:12px; padding:5px;">
+            @Html.Partial("_vmpReferencias", (List<Escrutinio.Models.TotalesReferenciaModel>)Model.REFERENCIA)
+        </div>
+
+        <div id="m_votos" style="font-size:12px; padding:5px;">
+            @Html.Partial("_vmpVotos", Model.VOTOS)
+        </div>
+
+    </section>
+}
+
+@section Scripts {
+
+    <script>
+
+        $("#IdTipo").change(function () {
+
+            var tipo = null;
+            $('#TIPOK').val(null);
+            var circuito = $('#IdCircuito').val();
+            var escuela = $('#IdEscuela').val();
+
+            var ValComboTipo = $(this).val();
+            if (ValComboTipo == "0002") {
+                var tipo = false;
+                $('#TIPOK').val(false);
+            }
+            if (ValComboTipo == "0003") {
+                var tipo = true;
+                $('#TIPOK').val(true);
+            }
+
+            // CIRCUITOS
+
+            $.getJSON('@Url.Action("GetCircuitos", "PASO")' + "?tipo=" + ValComboTipo, function (result) {
+                $("#IdCircuito").html("");
+                $("#IdCircuito").append("<option value>TODOS</option>")
+                var data = result.data;
+                for (var i = 0; i < data.length; i++) {
+                    $("#IdCircuito").append("<option value='" + data[i].ORID +"'>"+ data[i].DESCRIPCION +"</option>")
+                }
+            })
+
+            // ESCUELAS
+
+            $.getJSON('@Url.Action("GetEscuelas", "PASO")' + "?tipo=" + ValComboTipo + "&circuito=" + circuito, function (result) {
+                $("#IdEscuela").html("");
+                $("#IdEscuela").append("<option value>TODAS</option>")
+                var data = result.data;
+                for (var i = 0; i < data.length; i++) {
+                    $("#IdEscuela").append("<option value='" + data[i].ORID +"'>"+ data[i].DESCRIPCION +"</option>")
+                }
+            })
+
+            //
+
+            ActualizarDatos(tipo, circuito, escuela);
+        });
+
+
+        $("#IdCircuito").change(function () {
+
+            var circuito = $(this).val();
+            var tipo = $('#TIPOK').val();
+            var tipoCombo = $('#IdTipo').val();
+
+            $.getJSON('@Url.Action("GetEscuelas", "PASO")' + "?tipo=" + tipoCombo + "&circuito=" + circuito, function (result) {
+                $("#IdEscuela").html("");
+                $("#IdEscuela").append("<option value>TODAS</option>")
+
+                var data = result.data;
+
+                for (var i = 0; i < data.length; i++) {
+                    $("#IdEscuela").append("<option value='" + data[i].ORID +"'>"+ data[i].DESCRIPCION +"</option>")
+                }
+            })
+
+            ActualizarDatos(tipo, circuito, null);
+
+        });
+
+
+        $("#IdEscuela").change(function () {
+
+            var tipo = $('#TIPOK').val();
+            var circuito = $('#IdCircuito').val();
+            var escuela = $(this).val();
+
+            ActualizarDatos(tipo, circuito, escuela);
+
+        });
+
+        /////////////////////////
+
+        function ActualizarDatos(tipo, circuito, escuela) {
+
+            if (circuito == "") { circuito == null; };
+            if (escuela == "") { escuela == null; };
+
+            var _url = '@Url.Action("Referencias", "PASO")' + '?circuito=' +
+                circuito + '&escuela=' + escuela + '&extranjero=' + tipo + '&v=vm';
+
+            $.ajax({
+                url: _url,
+                type: 'post',
+                success: function (response) {
+
+                    $('#m_referencias').html(response);
+
+                    var _url2 = '@Url.Action("Votos", "PASO")' + '?circuito=' +
+                        circuito + '&escuela=' + escuela + '&extranjero=' + tipo + '&v=vm';
+
+                    $.ajax({
+                        url: _url2,
+                        type: 'post',
+                        success: function (response) {
+
+                            $('#m_votos').html(response);
+
+                        }
+                    });
+                }
+            });
+        }
+
+    </script>
+}

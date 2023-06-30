@@ -1,0 +1,94 @@
+﻿@model Escrutinio.Models.CargoCircuitoModel
+
+@{
+    ViewBag.Title = "DASHBOARD";
+}
+
+<script src="~/Scripts/Chart/Chart.js"></script>
+<script src="~/Scripts/Chart/jquery.min.js"></script>
+<script src="~/Scripts/Chart/bootstrap.min.js"></script>
+<script src="~/Scripts/Chart/fastclick.js"></script>
+<script src="~/Scripts/Chart/adminlte.min.js"></script>
+@*<script src="~/Scripts/Chart/demo.js"></script>*@
+
+<script src="~/Scripts/Chart/jquery.flot.js"></script>
+<script src="~/Scripts/Chart/jquery.flot.resize.js"></script>
+<script src="~/Scripts/Chart/jquery.flot.pie.js"></script>
+<script src="~/Scripts/Chart/jquery.flot.categories.js"></script>
+
+<script src="~/Scripts/Chart/raphael.min.js"></script>
+<script src="~/Scripts/Chart/morris.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    <section class="content">
+
+        <h2>Circuitos</h2>
+
+        <h3>@ViewBag.Info</h3>
+
+        <div class="row">
+
+            <div class="col-md-6 form-group">
+                <label class="control-label">CARGO</label>
+                @Html.DropDownList("IdCargo", new SelectList(ViewBag.Cargos, "ORID", "DESCRIPCION"), new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group label-floating">
+                    <label class="control-label" style="top:-28px;color:transparent;">H</label>
+                    <button type="submit" class="btn btn-primary form-control">Buscar</button>
+                </div>
+            </div>
+
+        </div>
+
+        @if (ViewBag.DatosCargoCircuito != null)
+        {
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bar Chart</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="chart">
+                        <canvas id="barChart" style="height:230px"></canvas>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+}
+
+<script>
+
+    $(function () {
+
+        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+        var barChart = new Chart(barChartCanvas)
+        var barChartData = @Html.Raw(ViewBag.DatosCargoCircuito);
+        var barChartOptions = {
+            scaleBeginAtZero: true,
+            scaleShowGridLines: true,
+            scaleGridLineColor: 'rgba(0,0,0,.05)',
+            scaleGridLineWidth: 1,
+            scaleShowHorizontalLines: true,
+            scaleShowVerticalLines: true,
+            barShowStroke: true,
+            barStrokeWidth: 2,
+            barValueSpacing: 5,
+            barDatasetSpacing: 1,
+            legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+            responsive: true,
+            maintainAspectRatio: true
+        }
+
+        barChartOptions.datasetFill = false
+        barChart.Bar(barChartData, barChartOptions)
+    })
+</script>

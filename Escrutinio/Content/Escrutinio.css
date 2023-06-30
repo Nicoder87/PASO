@@ -1,0 +1,36 @@
+﻿.pad1 {
+    padding: 3px;
+    border-style: double;
+    background-color: white;
+}
+
+.pad2 {
+    padding: 3px;
+    border-style: double;
+    background-color: white;
+    text-align: center;
+}
+
+.pad3 {
+    padding: 3px;
+    border-style: double;
+    background-color: white;
+    font-size: 15px;
+}
+
+.cabe {
+    padding: 3px;
+    border-style: double;
+    text-align: center;
+    background-color: #3c8dbc;
+    color: white;
+    font-weight: 700;
+}
+
+.noc {
+    padding: 3px;
+    border-style: double;
+    text-align: center;
+    background-color: #FFF;
+    font-weight: 700;
+}

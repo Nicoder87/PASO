@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fcb6fe2762e845f9a095c2409b2281b8" Name="Diagram1">
+        <EntityTypeShape EntityType="ESCRUTINIOModel.AGRUPACION" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.CANDIDATO" Width="1.5" PointX="7.5" PointY="5.5" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.CARGO" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.CIRCUITO" Width="1.5" PointX="0.75" PointY="11.625" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.ESCRUTINIO_CAB" Width="1.5" PointX="14.5" PointY="10.25" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.ESCRUTINIO_DET" Width="1.5" PointX="7.5" PointY="2.5" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.ESCRUTINIO_MESA" Width="1.5" PointX="7.5" PointY="12.25" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.ESCUELA" Width="1.5" PointX="3" PointY="10.75" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.MESA" Width="1.5" PointX="5.25" PointY="11" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.POSTULACION" Width="1.5" PointX="5.25" PointY="2.5" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.REGLA" Width="1.5" PointX="7.75" PointY="9.5" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.ROL" Width="1.5" PointX="10" PointY="9.375" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_CANDIDATO_POSTULACION" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_POSTULACION_CARGO" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_ESCUELA_CIRCUITO" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_ESCRUTINIO_CAB_MESA" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_ESCRUTINIO_DET_MESA" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_ESCRUTINIO_DET_POSTULACION" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_MESA" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_MESA_ESCUELA" />
+        <AssociationConnector Association="ESCRUTINIOModel.PERMISO" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.USUARIO" Width="1.5" PointX="12.25" PointY="9.125" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_ESCRUTINIO_MESA_CARGO" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_ESCRUTINIO_CAB__USUARIO" />
+        <AssociationConnector Association="ESCRUTINIOModel.DESIGNACION" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.TIPO_VOTO" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.vwCircuitosExtranjeros" Width="1.5" PointX="10.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.vwEscuelasExtranjeras" Width="1.5" PointX="10.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.vwEscuelasNacionales" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ESCRUTINIOModel.LISTA" Width="1.5" PointX="3" PointY="2.25" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_LISTA_AGRUPACION" />
+        <AssociationConnector Association="ESCRUTINIOModel.FK_POSTULACION_LISTA" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

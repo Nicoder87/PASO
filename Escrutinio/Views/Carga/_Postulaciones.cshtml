@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Escrutinio.Models.PostulacionModel>
+
+@{
+    var z = 0;
+}
+
+<style>
+    hr {
+        height: 1px;
+    }
+</style>
+
+<div class="row" style="padding-top:15px;">
+    @foreach (var p in Model)
+    {
+        if (p.OrdenCargo == 1)
+        {
+            <div class="form-group col-md-3" style="padding-top:10px;">
+                <label>@p.DescLista</label>
+
+            </div>
+        }
+        if (p.ORID != @Guid.Parse("00000000-0000-0000-0000-000000000000"))
+        {
+            var cargo = "CAR" + p.OrdenCargo;
+            var total = "TOT" + p.OrdenCargo;
+            var tag = "tag";
+            z = z + 1;
+            tag = tag + z;
+
+            <div class="form-group col-md-1">
+                <input type="text" name="Votos" class="@tag form-control @cargo @total" maxlength="3"
+                       onkeyup="Pasar(this, event);" onblur="CalcularValidos()" onkeypress="return SoloNumeros(event);" />
+
+                <input type="text" name="Postulacion" value="@p.ORID" style="display:none" />
+            </div>
+        }
+        else
+        {
+            <div class="form-group col-md-1">
+                <input type="text" class="form-control" style="background-color: #3c8dbc;" disabled />
+            </div>
+        }
+
+        if (p.OrdenCargo == 5)
+        {
+            <div class="row">
+                <hr style="background-color:white" />
+            </div>
+        }
+    }
+</div>

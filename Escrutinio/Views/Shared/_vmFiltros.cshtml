@@ -1,0 +1,16 @@
+﻿<div class="row">
+    <div class="col-xs-12 form-group">
+        <label class="control-label">TIPO</label>
+        @Html.DropDownList("IdTipo", new SelectList(ViewBag.Tipos, "CODIGO", "DESCRIPCION"), new { @class = "form-control" })
+    </div>
+
+    <div class="col-xs-12 form-group">
+        <label class="control-label">CIRCUITO</label>
+        @Html.DropDownList("IdCircuito", new SelectList(ViewBag.Circuitos, "ORID", "DESCRIPCION"), "TODOS", new { @class = "form-control" })
+    </div>
+
+    <div class="col-xs-12 form-group">
+        <label class="control-label">ESCUELA</label>
+        @Html.DropDownList("IdEscuela", new SelectList(ViewBag.Escuelas, "ORID", "DESCRIPCION"), "TODAS", new { @class = "form-control" })
+    </div>
+</div>

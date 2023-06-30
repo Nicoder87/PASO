@@ -1,0 +1,149 @@
+﻿@model IEnumerable<Escrutinio.Models.MesasFaltantesIndexModel>
+@using System.Configuration
+
+@{
+    ViewBag.Title = "MESAS FALTANTES";
+    var a = @Html.Raw(ViewBag.Cantidad);
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+<section class="content-header">
+    <h3 class="box-title">@ViewBag.Title</h3>
+</section>
+
+<section id="TODO" class="content">
+
+    <input type="text" id="TIPOK" style="display:none;">
+
+    <div class="col-md-12">
+        <input type="button" value="IMPRIMIR TABLA" onclick="javascript: printDiv('TODO')" />
+    </div>
+
+    @Html.Partial("_pcFiltros")
+
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            @Html.Partial("_Lista", (List<Escrutinio.Models.MesasFaltantesIndexModel>)Model)
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+</section>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatables/dataTables.bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        jQuery.noConflict();
+        jQuery("#example1").DataTable({
+            "ordering": false,
+            "paging": false,
+            'searching': false
+        });
+
+        $("#IdTipo").change(function () {
+
+            var tipo = null;
+            $('#TIPOK').val(null);
+            var circuito = $('#IdCircuito').val();
+            var escuela = $('#IdEscuela').val();
+
+            var ValComboTipo = $(this).val();
+            if (ValComboTipo == "0002") {
+                var tipo = false;
+                $('#TIPOK').val(false);
+            }
+            if (ValComboTipo == "0003") {
+                var tipo = true;
+                $('#TIPOK').val(true);
+            }
+
+            // CIRCUITOS
+
+            $.getJSON('@Url.Action("GetCircuitos", "MesasFaltantes")' + "?tipo=" + ValComboTipo, function (result) {
+                $("#IdCircuito").html("");
+                $("#IdCircuito").append("<option value>TODOS</option>")
+                var data = result.data;
+                for (var i = 0; i < data.length; i++) {
+                    $("#IdCircuito").append("<option value='" + data[i].ORID + "'>" + data[i].DESCRIPCION + "</option>")
+                }
+            })
+
+            // ESCUELAS
+
+            $.getJSON('@Url.Action("GetEscuelas", "MesasFaltantes")' + "?tipo=" + ValComboTipo + "&circuito=" + circuito, function (result) {
+                $("#IdEscuela").html("");
+                $("#IdEscuela").append("<option value>TODAS</option>")
+                var data = result.data;
+                for (var i = 0; i < data.length; i++) {
+                    $("#IdEscuela").append("<option value='" + data[i].ORID + "'>" + data[i].DESCRIPCION + "</option>")
+                }
+            })
+
+            //
+
+            ActualizarDatos(tipo, circuito, escuela);
+        });
+
+        $("#IdCircuito").change(function () {
+
+            var circuito = $(this).val();
+            var tipo = $('#TIPOK').val();
+            var tipoCombo = $('#IdTipo').val();
+
+            $.getJSON('@Url.Action("GetEscuelas", "MesasFaltantes")' + "?tipo=" + tipoCombo + "&circuito=" + circuito, function (result) {
+                $("#IdEscuela").html("");
+                $("#IdEscuela").append("<option value>TODAS</option>")
+
+                var data = result.data;
+
+                for (var i = 0; i < data.length; i++) {
+                    $("#IdEscuela").append("<option value='" + data[i].ORID + "'>" + data[i].DESCRIPCION + "</option>")
+                }
+            })
+
+            ActualizarDatos(tipo, circuito, null);
+
+        });
+
+        $("#IdEscuela").change(function () {
+
+            var tipo = $('#TIPOK').val();
+            var circuito = $('#IdCircuito').val();
+            var escuela = $(this).val();
+
+            ActualizarDatos(tipo, circuito, escuela);
+
+        });
+
+        /////////////////////////
+
+        function ActualizarDatos(tipo, circuito, escuela) {
+
+            if (circuito == "") { circuito == null; };
+            if (escuela == "") { escuela == null; };
+
+            var _url = '@Url.Action("ActualizarDatos", "MesasFaltantes")' + '?circuito=' +
+                circuito + '&escuela=' + escuela + '&extranjero=' + tipo + '&v=pc';
+
+            $.ajax({
+                url: _url,
+                type: 'post',
+                success: function (response) {
+
+                    $('#example1').html(response);
+
+                }
+            });
+        }
+
+    </script>
+}
